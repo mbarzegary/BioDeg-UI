@@ -1,0 +1,148 @@
+// defining the geometry of the scaffold and constructing the mesh
+
+IFMACRO(!idpGeometry)
+macro idpGeometry 1 // prevent multiple include statements
+
+// Create initial mesh
+meshN Mesh; // main mesh file, will be partitioned with overlapping techniques
+meshN MeshNoOverlap; // mesh without overlapping, used to calculate the scaffold volume/area
+meshN MeshBackup;
+
+if (mpirank==0) // mesh generation only in one MPI process
+{
+  if (importMesh) // if we want to read external mesh, we should properly define phi function too
+  {
+    print("Reading input mesh...")
+    Mesh = readmesh3(meshFileName);
+  }
+  else // generate mesh using tetgen instead
+  {
+    Mesh = cube(2, 2, 2, [L*x, L*y, L*z]); // initial mesh is 2*2*2 but then is modified using tetgen
+    real[int] domain = [0, 0, 0, 0, 1];
+    // initla simple mesh is converted to a complex tetrahedral mesh using tetgem
+    Mesh = tetgreconstruction(Mesh, switch="raAQ", regionlist=domain, sizeofvolume=(L*1./meshSize)^3 / 6);
+  }
+}
+broadcast(processor(0), Mesh); // all processes wait for process #0 to give them the new Mesh
+MeshBackup = Mesh;
+
+// creating Finite element spaces
+fespace SpaceP1(Mesh, Pk); // used for all the dependent variables and distance funtion
+fespace SpaceP0(Mesh, P0); // used to calculate the available scaffold volume
+fespace SpaceVector(Mesh, PkVector); // used for the vecotr space of fluid flow
+
+SpaceP1 phi = 0; // main distance function, positive inside and negative outside of the scaffold
+SpaceP1 phiTemp; // temporary variable for redistancing distance function
+SpaceP1 mm; //mshmet metrics for mesh adaptation
+
+// initilize distance function based on the geometry
+if (mpirank == 0)
+{
+  if (importMesh)
+  {
+    string fileName = meshFileName + ".sol";
+    if (fileExists(fileName)) // read the sol file computed before
+      phi[] = readsol(fileName);
+    else
+    {
+      print("Detecting mesh regions...")
+      meshN MeshScaffold = trunc(Mesh, region==scaffoldLabel);
+      SpaceP1 X = x;
+      SpaceP1 Y = y;
+      SpaceP1 Z = z;
+      for (int i = 0; i < SpaceP1.ndof; i++)
+      {
+        if (chi(MeshScaffold)(X[][i], Y[][i], Z[][i]) == 1)
+          phi[][i] = 1;
+        cout << "\rProcessed: " << i << " / " << SpaceP1.ndof;
+      }
+      print("")
+      phi = phi - 0.5;
+      savesol(fileName, Mesh, phi);
+    }
+  }
+  else
+    phi = box - 0.5;
+}
+broadcast(processor(0), phi[]); // broadcast initialized function to all processes
+
+if (refineInitialMesh) // adapt initial mesh according to the phi function
+{
+  if (mpirank == 0) // mesh refinement is done only in one process
+  {
+    print("Refining mesh ...")
+    mm = 0.;
+    // computing the mesh adaptation index for each element using mshmet to pass it to tetgen
+    mm[]=mshmet(Mesh,(phi>0),normalization=1,aniso=0,nbregul=1,hmin=meshMin,hmax=meshMax,err=mshmetError);
+    Mesh=tetgreconstruction(Mesh,switch="raAQ",sizeofvolume=mm*mm*mm/6.); // actual mesh refinement using tetgen
+  }
+  broadcast(processor(0), Mesh);
+  phi = phi; // mesh is changed, so we have to interpolate distance function variable into new mesh
+}
+
+if (mpirank==0)
+{
+  // print mesh and problem dimentions
+  printDivider;
+  print("Finite Element DOF: " + SpaceP1.ndof);
+  print("Number of Elements: " + Mesh.nt);
+  if (saveInitialMesh) // save the mesh after possible adaptation
+  {
+    cout << "Saving initial mesh ..." << endl;
+    savevtk("initialMesh.vtu", Mesh, phi, dataname="phi");
+  }
+}
+
+// redistancing is mandatory at the beginning
+if (mpirank==0) // only one process does the redistancing
+{
+  distance(Mesh, phi, phiTemp[]);
+  phi = phiTemp;
+}
+broadcast(processor(0), phi[]); // broadcast is a collective task in MPI, so there is no need to call mpiBarrier
+
+// partition the mesh and create the non-overlapping as well
+if (mpirank == 0)
+  print("Partitioning the mesh...")
+
+int[int] n2oOverlap;
+int[int] n2oGlobal;
+NewMacro MeshN2O() n2oGlobal EndMacro
+
+Mat NS, A;
+buildDmesh(Mesh);
+{
+  macro def(i)[i, i#B, i#C, i#D]//
+  macro init(i)[i, i, i, i]//
+  createMat(Mesh, NS, PkVector)
+}
+{
+  macro def(i)i//
+  macro init(i)i//
+  createMat(Mesh, A, Pk)
+}
+{
+    fespace SpaceP0Temp(Mesh, P0);
+    SpaceP0Temp part;
+    createPartition(Mesh, part[], P0)
+    MeshNoOverlap = trunc(Mesh, abs(part - 1.0) < 1e-1, new2old = n2oOverlap);
+}
+
+phi = phi;
+if (saveInitialPartitionedMesh)
+{
+  savevtk("initialMesh_Partitioned_NoOverlap.vtu", MeshNoOverlap, region, dataname="region", append=false);
+  savevtk("initialMesh_Partitioned_Overlapped.vtu", Mesh, region, dataname="region", append=false);
+}
+
+int total = 0; // total number of DOF
+int currentDOF = SpaceP1.ndof;
+mpiAllReduce(currentDOF, total, mpiCommWorld, mpiSUM);
+if (mpirank == 0)
+{
+  print("The average DOF in each MPI process: " + total / mpisize);
+  print("Number of MPI processes: " + mpisize);
+}
+// print("DOF in MPI process " + mpirank + ": " + SpaceP1.ndof);
+
+ENDIFMACRO

@@ -1,0 +1,42 @@
+// newton solver to calculate the alpha value in 1-D stefan problem
+
+IFMACRO(!idpStefan)
+macro idpStefan 1 // prevent multiple include statements
+
+func real Func(real x, real C, real D)
+{
+  return -C*sqrt(D)*exp(-pow(x, 2)/D)/(sqrt(pi)*(2 - erfc(x/sqrt(D)))) + x;
+}
+
+func real dFunc(real x, real C, real D)
+{
+  return 2*C*exp(-2*pow(x, 2)/D)/(pi*pow(2 - erfc(x/sqrt(D)), 2)) + 2*C*x*exp(-pow(x, 2)/D)/(sqrt(pi)*sqrt(D)*(2 - erfc(x/sqrt(D)))) + 1;
+}
+
+func real dX(real x, real C, real D)
+{
+  return abs(0 - Func(x, C, D));
+}
+
+func real newtons(real x0, real e, real C, real D)
+{
+  real delta = dX(x0, C, D);
+  real x = x0;
+
+  while (delta > e)
+  {
+    x = x - Func(x, C, D) / dFunc(x, C, D);
+    delta = dX(x, C, D);
+  }
+
+  return x;
+}
+
+func real calculateAlpha(real c0, real cSol, real cSat, real D)
+{
+  real C = (c0 - cSat)/(cSol - cSat);
+  real x0 = 0;
+  return newtons(x0, 1e-7, C, D);
+}
+
+ENDIFMACRO
