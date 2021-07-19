@@ -1,0 +1,127 @@
+// all the parameters that configure the overall process of simulation
+
+IFMACRO(!idpParameters)
+macro idpParameters 1 // prevent multiple include statements
+
+// if one parameter needs to be read from command line args, the syntax is as follows:
+// real k1 = getARGV("-k1", 2.); //for floats
+// int run = getARGV("-run", 1); //for integers
+
+verbosity = 0; // ask FreeFEM not to print info on terminal
+
+
+// Solver parameters
+real TGV = 1e8; //Huge value used to implement Dirichlet boundary conditions
+
+string textOutputFilename = getARGV("-text_output_file", "output/result.txt"); // path to text output file
+string vtkOutputFilename = getARGV("-vtk_output_name", "output/output"); // path to text output file
+bool writeVtkOutput = getARGV("-write_vtk", 1); // save vtk output or not
+bool saveInitialMesh = getARGV("-save_initial_mesh", 0); // whether save initial mesh after refinement in vtk
+bool saveInitialPartitionedMesh = getARGV("-save_initial_partitioned_mesh", 0); // whether save initial mesh after partitioning
+// if the model is symmetric, we can multiply the predicted mass loss to inverse of the fraction
+// to match it with the full model. for example, if the simulated model is half of the
+// full model, the below parameter should be 2, and the mass loss value will be for a full model
+// it only affects the written text output (and not the terminal output)
+real saveMultiplier = getARGV("-save_multiplier", 1.0); // if it's a symmetric model, the quantitaive output should be multiplied
+bool outputPerArea = getARGV("-output_per_area", 0); // should the (text) output be per unit area or not
+bool saveLastTimeStep = getARGV("-save_last_state", 1); // save the last state of the model in vtu
+
+bool refineInitialMesh = getARGV("-refine_initial_mesh", 0); // should initial mesh be refined based on distance function, recommended for internal mesh only
+bool refineMeshDuringSimulation = getARGV("-refine_mesh_during", 0); // should mesh be refined during simulation
+bool keepPreviousRefinedMesh = getARGV("-keep_previous_refined_mesh", 0); // adapt the mesh in the interface and do not modify previous refined mesh
+real scaffoldChangeThreshold = getARGV("-refine_change_threshold", 5.0); // shrink percentage at which mesh should be refined again
+
+bool doRedistance = getARGV("-do_redistance", 1); // whether redistance the distance function during simulation or not
+
+bool solveFluidFlow = getARGV("-solve_fluid", 1); // solve the fluid flow equation or not
+bool solveFullNavierStokes = getARGV("-solve_full_ns", 1); // otherwise it solves only the Stokes equation
+bool writeFlowFieldOutput = getARGV("-write_fluid_output", 1); // write the velocity components and pressure to the vtk file or not
+int solveFluidEach = getARGV("-solve_fluid_each", 10);
+
+bool solveMgEquation = getARGV("-solve_mg", 1); // solve the Mg equation or not
+bool solveFilmEquation = getARGV("-solve_film", 1); // solve the Film equation or not
+bool solveClEquation = getARGV("-solve_cl", 1); // solve the chloride equation or not
+bool solveOHEquation = getARGV("-solve_oh", 1); // solve the hydroxide equation or not
+bool solveLevelSet = getARGV("-solve_ls", 1); // solve the moving interface equation or not
+
+// Geometry parameters
+bool importMesh = getARGV("-import_mesh", 1); // import external mesh or create one using tetgen
+// parameters for importing external mesh
+string meshFileName = getARGV("-mesh_file", "mesh/sphere.mesh");
+
+int scaffoldLabel = getARGV("-label_scaffold", 1); // scaffold volume label in external mesh file
+int mediumLabel = getARGV("-label_medium", 2); // medium volume label in external mesh file
+int Wall = getARGV("-label_wall", 3);  // wall surface label in the external mesh for fluid flow
+int Inlet = getARGV("-label_inlet", 4); // inlet surface label in the external mesh for fluid flow
+int Outlet = getARGV("-label_outlet", 5); // outlet surface label in the external mesh for fluid flow
+
+// parameters to generate a mesh using tetgen
+real L = getARGV("-box_length", 20.); // length of the main mesh box (mm)
+real cuboidX  = getARGV("-cube_size_x", 13.); // size of the cuboid in X direction (mm)
+real cuboidY  = getARGV("-cube_size_y", 13.); // size of the cuboid in Y direction (mm)
+real cuboidZ  = getARGV("-cube_size_z", 4.); // size of the cuboid in Z direction (mm)
+int meshSize = getARGV("-mesh_size", 32); // number of mesh nodes on each edge of the box
+real mshmetError = getARGV("-mshmet_error", 1e-2); // tolerance for mesh refinement, used by mshmet
+real meshMin = getARGV("-mesh_size_min", 4e-2); // minimum size of elements during mesh refinement
+real meshMax = getARGV("-mesh_size_max", 0.8); // minimum size of elements during mesh refinement
+
+// Time parameters
+real dt = getARGV("-time_step", 0.025); // time step (hour)
+real saveEachTime = getARGV("-save_each", 0.25);
+int saveEach = saveEachTime / dt; // number of steps between each output.
+// Here it is calculated to save every 1.0 hour, assuming dt is a proper multiplier.
+real Tfinal = getARGV("-final_time", 21.); // final time (hour)
+Tfinal += dt;
+real dtRedistance = getARGV("-redistance_time", 1.0); // time to each redistance of the distance funtion
+
+// Export scaffold mesh paramters
+bool exportScaffoldMesh = getARGV("-export_scaffold", 0);
+real saveScaffoldEachTime = getARGV("-export_scaffold_each", 1.);
+int saveScaffoldEach = saveScaffoldEachTime / dt; // number of steps between each mesh output
+bool exportVolume = getARGV("-export_scaffold_volume", 1);
+bool exportSurface = getARGV("-export_scaffold_surface", 1);
+
+// Material parameters
+real tau = getARGV("-material_tau", 1.); // torquosity of the film
+real eps = getARGV("-material_eps", 0.55); // porosity of the film
+real del = getARGV("-material_del", 1.); // constrictivity
+
+// Fluid properties
+real uInX = getARGV("-fluid_in_x", 0.1); // inlet velocity
+real uInY = getARGV("-fluid_in_y", 0);
+real uInZ = getARGV("-fluid_in_z", 0);
+real nu = getARGV("-fluid_nu", 0.85);
+
+real k1 = getARGV("-k1", 7.); // film formation rate (1/hour)
+real k2 = getARGV("-k2", 1e15); // film disolution rate (mm^6/hour.g^2)
+real DMg = getARGV("-d_mg", 0.05); // diffusion coefficient of Mg (mm^2/hour)
+real DCl = getARGV("-d_cl", 0.05); // diffusion coefficient of Cl (mm^2/hour)
+real DOH = getARGV("d_oh", 25.2); // diffusion coefficient of OH (mm^2/hour)
+
+real Mgsolid = getARGV("-material_density", 1735.0*1e-6); // Mg density (g/mm^3)
+real Fsolid = getARGV("-film_density", 2344.6*1e-6); // density of the film (g/mm^3)
+real Fcoef = getARGV("-fcoef", 1.);
+real Fmax = Fsolid * (1 - eps) * Fcoef; // maximum protective film concentration (g/mm^3)
+real Mgbc = getARGV("-material_satur", 134.*1e-6); // Mg saturation concentration (g/mm^3)
+real Clinital = getARGV("-initial_cl", 5.175e-6); // initial Cl concentration (g/mm^3)
+real OHinitla = getARGV("-initial_oh", 1e-7); // initial concentration of OH (g/mm^3)
+// real Clbc = 0; // Cl saturation concentration (g/mm^3)
+// real OHbc = 1e-7; // concentration of OH at the boundary of scaffold (g/mm^3)
+
+
+real alphaCoeff = getARGV("-acoef", 0.); // value that will be multiplied to the calucalted alphaCoeff
+// a zero alphaCoeff leads to no initial velocity of interface
+
+// parallelization, partitioning, and PETSc parameters
+func Pk = P1; // type of elements, used by partitioning functions
+func PkVector = [P2, P2, P2, P1]; // type of elements for fluid flow
+// -pc_type hypre -ksp_view -ksp_monitor
+string aParams = "-pc_type bjacobi "; // "-ksp_view ";
+string[int] names(2); // fieldsplit names
+names[0] = "velocity";
+names[1] = "pressure";
+string nsParams = "-ksp_monitor -ksp_type fgmres -ksp_converged_reason -pc_type fieldsplit -pc_fieldsplit_type schur "
+                + "-fieldsplit_velocity_pc_type gamg -fieldsplit_pressure_ksp_max_it 5 "
+                + "-fieldsplit_pressure_pc_type jacobi -fieldsplit_velocity_ksp_type preonly -pc_fieldsplit_schur_fact_type full";
+
+ENDIFMACRO

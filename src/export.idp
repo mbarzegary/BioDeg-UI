@@ -1,0 +1,57 @@
+// export the geometry of the scaffold at certain points
+
+IFMACRO(!idpExport)
+macro idpExport 1 // prevent multiple include statements
+
+if (exportScaffoldMesh)
+{
+  if (count % saveScaffoldEach == 0) // scaffold mesh should be saved in current time step
+  {
+    if (mpirank == 0)
+      print("Exporting the scaffold mesh...")
+
+    fespace SpaceBackup(MeshBackup, Pk);
+    SpaceBackup phiG, phiReduce;
+
+    phiTemp = phi;
+    phiTemp[] .*= A.D;
+
+    int[int] rst = restrict(SpaceP1, SpaceBackup, n2oGlobal);
+
+    phiG = 0;
+    for[i, v : rst] phiG[][v] = phiTemp[][i];
+
+    phiReduce = 0;
+    mpiAllReduce(phiG[], phiReduce[], mpiCommWorld, mpiSUM);
+
+    if (mpirank == 0)
+    {
+      // savevtk("export/test.vtu", MeshBackup, phiReduce, dataname="phi", order = orderOut, append = false);
+
+      print("-> Remeshing the interface...")
+      meshN MeshExport = mmg3d(MeshBackup, metric=phiReduce[], iso=1, ls=0, hausd=1, verbose=0);
+
+      if (exportVolume)
+      {
+        meshN MeshScaffold = trunc(MeshExport, region==2);
+        savemesh(MeshScaffold, "export/volumeScaffold-"+count+".mesh");
+      }
+
+      if (exportSurface)
+      {
+        print("-> Separating the surface mesh...")
+
+        MeshExport = buildBdMesh(MeshExport);
+
+        meshS MeshS = MeshExport.Gamma;
+        // savemesh(MeshS, "export/surface.mesh");
+
+        MeshS = trunc(MeshS, region==10);
+        MeshS = mmgs(MeshS, hausd=1, verbose=0);
+        savemesh(MeshS, "export/surfaceScaffold-"+count+".mesh");
+      }
+    }
+  }
+}
+
+ENDIFMACRO
