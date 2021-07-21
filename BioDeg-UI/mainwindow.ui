@@ -64,7 +64,7 @@
   </widget>
   <widget class="QDockWidget" name="dockSetup">
    <property name="sizePolicy">
-    <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
@@ -503,7 +503,7 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_25">
               <item>
-               <widget class="QLabel" name="featureSizeLabel_6">
+               <widget class="QLabel" name="refineErrorLabel">
                 <property name="text">
                  <string>Refinement tolerance (error)</string>
                 </property>
@@ -542,7 +542,7 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_26">
               <item>
-               <widget class="QLabel" name="featureSizeLabel_7">
+               <widget class="QLabel" name="refineMinLabel">
                 <property name="text">
                  <string>Minimum element size</string>
                 </property>
@@ -578,7 +578,7 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_27">
               <item>
-               <widget class="QLabel" name="featureSizeLabel_8">
+               <widget class="QLabel" name="refineMaxLabel">
                 <property name="text">
                  <string>Maximum element size</string>
                 </property>
@@ -1032,7 +1032,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="reactDiffGroup_2">
+          <widget class="QGroupBox" name="convectGroup">
            <property name="title">
             <string>Convection properties</string>
            </property>
@@ -1389,7 +1389,7 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_43">
               <item>
-               <widget class="QLabel" name="label_19">
+               <widget class="QLabel" name="solveFluidEachLabel_1">
                 <property name="text">
                  <string>Solve fluid equation every  </string>
                 </property>
@@ -1418,7 +1418,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="label_20">
+               <widget class="QLabel" name="solveFluidEachLabel_2">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -1538,7 +1538,7 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_47">
               <item>
-               <widget class="QLabel" name="featureSizeLabel_25">
+               <widget class="QLabel" name="redistTimeLabel">
                 <property name="text">
                  <string>Time between each redistancing (hour)</string>
                 </property>
@@ -1828,7 +1828,7 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_48">
               <item>
-               <widget class="QLabel" name="featureSizeLabel_26">
+               <widget class="QLabel" name="exportTimeLabel">
                 <property name="text">
                  <string>Time between each export (hour)</string>
                 </property>

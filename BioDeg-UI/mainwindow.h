@@ -15,6 +15,15 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_importMeshRadio_toggled(bool checked);
+    void on_refineInitMeshCheck_toggled(bool checked);
+    void on_solveFluidCheck_toggled(bool checked);
+    void on_doRedistCheck_toggled(bool checked);
+    void on_exportScaffoldCheck_toggled(bool checked);
+    void on_meshFileBrowseButton_clicked();
+    void on_outputDirBrowseButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
