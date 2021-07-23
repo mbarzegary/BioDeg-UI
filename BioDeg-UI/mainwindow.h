@@ -26,5 +26,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QString prepareArguments();
 };
 #endif // MAINWINDOW_H
