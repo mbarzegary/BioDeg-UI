@@ -2,10 +2,13 @@
 #include "./ui_mainwindow.h"
 
 #include <QtMath>
+#include <QProcess>
 
 #include <QTextStream>
 #include <QFileDialog>
 #include <QMessageBox>
+
+QProcess *process;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->solveFluidCheck->toggled(false);
     ui->doRedistCheck->setChecked(true);
     ui->exportScaffoldCheck->toggled(false);
+
+    ui->setupDock->setMinimumSize(ui->setupDock->minimumSize().width(), 200);
 }
 
 MainWindow::~MainWindow()
@@ -34,7 +39,7 @@ QString MainWindow::prepareArguments()
     if (ui->importMeshRadio->isChecked())
     {
         out << "1 ";
-        out << "-mesh_file " << ui->meshFileNameEdit->text();
+        out << "-mesh_file \"" << ui->meshFileNameEdit->text() + "\"";
         out << " -label_scaffold " << ui->scaffoldLabelSpin->value();
         out << " -label_medium " << ui->mediumLabelSpin->value();
     }
@@ -112,13 +117,13 @@ QString MainWindow::prepareArguments()
         out << "-write_fluid_output 0";
     }
 
-    out << " -text_output_file " << ui->outputDirEdit->text() + "/" + ui->outputNameEdit->text() + ".txt";
+    out << " -text_output_file \"" << ui->outputDirEdit->text() + "/" + ui->outputNameEdit->text() + ".txt\"";
 
     out << " -write_vtk ";
     if (ui->writeVTKCheck->isChecked())
     {
         out << "1 ";
-        out << "-vtk_output_name " << ui->outputDirEdit->text() + "/" + ui->outputNameEdit->text();
+        out << "-vtk_output_name \"" << ui->outputDirEdit->text() + "/" + ui->outputNameEdit->text() + "\"";
     }
     else
         out << "0 ";
@@ -144,7 +149,42 @@ QString MainWindow::prepareArguments()
     out << " -save_initial_partitioned_mesh " << int(ui->saveInitialPartitionCheck->isChecked());
 
     return args;
+}
 
+void MainWindow::readOutput()
+{
+    displayMessage(process->readAllStandardOutput(), false);
+}
+
+void MainWindow::readError()
+{
+    displayMessage(process->readAllStandardError(), true);
+}
+
+void MainWindow::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
+{
+    QMessageBox qmb;
+//    qmb.setText("Process finished with exit code " + QString::number(exitCode));
+    if (exitStatus == QProcess::ExitStatus::NormalExit)
+        if (exitCode == 0)
+            qmb.setText("Process finished successfully!");
+        else
+            qmb.setText("Process finished with error!");
+    else
+        qmb.setText("Process interrupted!");
+    qmb.exec();
+    ui->runButton->setEnabled(true);
+    ui->stopButton->setEnabled(false);
+    ui->runButton->setText("Run simulation");
+}
+
+void MainWindow::displayMessage(QString msg, bool isError)
+{
+    if (isError)
+        ui->outputText->setTextColor(QColor("red"));
+    else
+        ui->outputText->setTextColor(QColor("black"));
+    ui->outputText->append(msg);
 }
 
 void MainWindow::on_importMeshRadio_toggled(bool checked)
@@ -211,4 +251,25 @@ void MainWindow::on_outputDirBrowseButton_clicked()
         return;
 
     ui->outputDirEdit->setText(s);
+}
+
+void MainWindow::on_runButton_clicked()
+{
+    QString args = prepareArguments();
+    process = new QProcess(this);
+    QString program = "mpiexec -n 3 FreeFem++-mpi ../BioDeg-core/src/main.edp -v 0 " + args;
+    connect(process, SIGNAL(readyReadStandardOutput()), this, SLOT(readOutput()));
+    connect(process, SIGNAL(readyReadStandardError()), this, SLOT(readError()));
+    connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
+    displayMessage("Executing: " + program, false);
+    process->start(program);
+    ui->runButton->setEnabled(false);
+    ui->stopButton->setEnabled(true);
+    ui->runButton->setText("Running...");
+}
+
+void MainWindow::on_stopButton_clicked()
+{
+    if (process->state() == QProcess::ProcessState::Running)
+        process->kill();
 }

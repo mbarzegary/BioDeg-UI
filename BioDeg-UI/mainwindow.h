@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QProcess>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,6 +17,9 @@ public:
     ~MainWindow();
 
 private slots:
+    void readOutput();
+    void readError();
+    void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
     void on_importMeshRadio_toggled(bool checked);
     void on_refineInitMeshCheck_toggled(bool checked);
     void on_solveFluidCheck_toggled(bool checked);
@@ -23,9 +27,12 @@ private slots:
     void on_exportScaffoldCheck_toggled(bool checked);
     void on_meshFileBrowseButton_clicked();
     void on_outputDirBrowseButton_clicked();
+    void on_runButton_clicked();
+    void on_stopButton_clicked();
 
 private:
     Ui::MainWindow *ui;
     QString prepareArguments();
+    void displayMessage(QString msg, bool isError);
 };
 #endif // MAINWINDOW_H
