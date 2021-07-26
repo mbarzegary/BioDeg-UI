@@ -3,6 +3,7 @@
 
 #include <QtMath>
 #include <QProcess>
+#include <QLocale>
 
 #include <QTextStream>
 #include <QFileDialog>
@@ -23,6 +24,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->exportScaffoldCheck->toggled(false);
 
     ui->setupDock->setMinimumSize(ui->setupDock->minimumSize().width(), 200);
+
+    #ifdef Q_OS_WINDOWS
+    ui->outputText->setFontFamily("Consolas");
+    #endif
+
+    displayMessage("Welcome to BioDeg UI, the graphical interface of BioDeg!", false);
 }
 
 MainWindow::~MainWindow()
@@ -153,7 +160,14 @@ QString MainWindow::prepareArguments()
 
 void MainWindow::readOutput()
 {
-    displayMessage(process->readAllStandardOutput(), false);
+    QString output = process->readAllStandardOutput();
+    QStringList list = output.split("\n");
+    for (QString line : list)
+        if (!line.isEmpty())
+        {
+            displayMessage(line, false);
+            updateDashboard(line);
+        }
 }
 
 void MainWindow::readError()
@@ -185,6 +199,25 @@ void MainWindow::displayMessage(QString msg, bool isError)
     else
         ui->outputText->setTextColor(QColor("black"));
     ui->outputText->append(msg);
+}
+
+void MainWindow::toggleFullScreen(bool value)
+{
+    if (value)
+        this->showFullScreen();
+    else
+        this->showNormal();
+}
+
+void MainWindow::updateDashboard(QString output)
+{
+    output = output.toLower();
+    if (output.startsWith("finite element dof"))
+        ui->dofLabel->setText(QLocale(QLocale::English).toString(output.split(" ").last().toInt()));
+    else if (output.startsWith("number of elements"))
+        ui->nElementsLabel->setText(QLocale(QLocale::English).toString(output.split(" ").last().toInt()));
+    else if (output.startsWith("the average dof"))
+        ui->averDOFLabel->setText(QLocale(QLocale::English).toString(output.split(" ").last().toInt()));
 }
 
 void MainWindow::on_importMeshRadio_toggled(bool checked)

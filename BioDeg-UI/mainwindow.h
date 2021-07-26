@@ -20,6 +20,7 @@ private slots:
     void readOutput();
     void readError();
     void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
+    void toggleFullScreen(bool value);
     void on_importMeshRadio_toggled(bool checked);
     void on_refineInitMeshCheck_toggled(bool checked);
     void on_solveFluidCheck_toggled(bool checked);
@@ -34,5 +35,6 @@ private:
     Ui::MainWindow *ui;
     QString prepareArguments();
     void displayMessage(QString msg, bool isError);
+    void updateDashboard(QString);
 };
 #endif // MAINWINDOW_H
