@@ -30,7 +30,6 @@ private slots:
     void on_outputDirBrowseButton_clicked();
     void on_runButton_clicked();
     void on_stopButton_clicked();
-
     void on_parallelCheck_toggled(bool checked);
 
 private:
@@ -38,5 +37,6 @@ private:
     QString prepareArguments();
     void displayMessage(QString msg, bool isError);
     void updateDashboard(QString);
+    void initializeDashboard();
 };
 #endif // MAINWINDOW_H

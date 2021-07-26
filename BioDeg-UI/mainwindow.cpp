@@ -10,6 +10,8 @@
 #include <QMessageBox>
 
 QProcess *process;
+int totalSteps;
+double totalTime;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -29,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->outputText->setFontFamily("Consolas");
     #endif
 
-    displayMessage("Welcome to BioDeg UI, the graphical interface of BioDeg!", false);
+    displayMessage("Welcome to BioDeg UI, the graphical interface of BioDeg simulation code!", false);
 }
 
 MainWindow::~MainWindow()
@@ -209,6 +211,23 @@ void MainWindow::toggleFullScreen(bool value)
         this->showNormal();
 }
 
+void MainWindow::initializeDashboard()
+{
+    ui->dofLabel->setText("0");
+    ui->nElementsLabel->setText("0");
+    ui->averDOFLabel->setText("0");
+    ui->nMPILabel->setText(ui->parallelCheck->isChecked() ? QString::number(ui->mpiSpin->value()) : "1");
+
+    totalTime = ui->tFinalSpin->value();
+    totalSteps = int(totalTime / ui->dtSpin->value()) + 1;
+    ui->currentStepLabel->setText(QString("%1 / %2").arg(0).arg(totalSteps));
+    ui->currentTimeLabel->setText(QString("%1 / %2").arg(0).arg(totalTime));
+    ui->stepProgressBar->setValue(0);
+
+    ui->massLossLabel->setText("0 %");
+    ui->massLossProgressBar->setValue(0);
+}
+
 void MainWindow::updateDashboard(QString output)
 {
     output = output.toLower();
@@ -218,6 +237,22 @@ void MainWindow::updateDashboard(QString output)
         ui->nElementsLabel->setText(QLocale(QLocale::English).toString(output.split(" ").last().toInt()));
     else if (output.startsWith("the average dof"))
         ui->averDOFLabel->setText(QLocale(QLocale::English).toString(output.split(" ").last().toInt()));
+    else if (output.startsWith("time:"))
+    {
+        double time = output.split(" ", Qt::SkipEmptyParts).at(1).toDouble();
+        int step = output.split(" ", Qt::SkipEmptyParts).at(3).toInt();
+        ui->currentStepLabel->setText(QString("%1 / %2").arg(step).arg(totalSteps));
+        ui->currentTimeLabel->setText(QString("%1 / %2").arg(time).arg(totalTime));
+        ui->stepProgressBar->setValue(int(step*100/totalSteps));
+    }
+    else if (output.startsWith("initial size"))
+    {
+        double loss = output.split(" ", Qt::SkipEmptyParts).last().toDouble();
+        if (loss < 0)
+            loss = 0;
+        ui->massLossLabel->setText(QString("%1 %").arg(loss, 0, 'g', 3));
+        ui->massLossProgressBar->setValue(int(loss));
+    }
 }
 
 void MainWindow::on_importMeshRadio_toggled(bool checked)
@@ -308,6 +343,7 @@ void MainWindow::on_runButton_clicked()
     ui->runButton->setEnabled(false);
     ui->stopButton->setEnabled(true);
     ui->runButton->setText("Running...");
+    initializeDashboard();
 }
 
 void MainWindow::on_stopButton_clicked()
