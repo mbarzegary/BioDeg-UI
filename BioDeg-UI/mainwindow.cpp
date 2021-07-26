@@ -260,6 +260,12 @@ void MainWindow::on_exportScaffoldCheck_toggled(bool checked)
     ui->exportScaffSurfaceCheck->setEnabled(checked);
 }
 
+void MainWindow::on_parallelCheck_toggled(bool checked)
+{
+    ui->parallelLabel->setEnabled(checked);
+    ui->mpiSpin->setEnabled(checked);
+}
+
 void MainWindow::on_meshFileBrowseButton_clicked()
 {
     QFileDialog* qfd = new QFileDialog(this, "Select Mesh File", "", "*.mesh");
@@ -289,8 +295,11 @@ void MainWindow::on_outputDirBrowseButton_clicked()
 void MainWindow::on_runButton_clicked()
 {
     QString args = prepareArguments();
+    int n = 1;
+    if (ui->parallelCheck->isChecked())
+        n = ui->mpiSpin->value();
     process = new QProcess(this);
-    QString program = "mpiexec -n 3 FreeFem++-mpi ../BioDeg-core/src/main.edp -v 0 " + args;
+    QString program = "mpiexec -n " + QString::number(n) + " FreeFem++-mpi ../BioDeg-core/src/main.edp -v 0 " + args;
     connect(process, SIGNAL(readyReadStandardOutput()), this, SLOT(readOutput()));
     connect(process, SIGNAL(readyReadStandardError()), this, SLOT(readError()));
     connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));

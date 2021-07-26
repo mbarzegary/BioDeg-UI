@@ -31,6 +31,8 @@ private slots:
     void on_runButton_clicked();
     void on_stopButton_clicked();
 
+    void on_parallelCheck_toggled(bool checked);
+
 private:
     Ui::MainWindow *ui;
     QString prepareArguments();
