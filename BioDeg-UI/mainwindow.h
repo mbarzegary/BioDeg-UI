@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "global.h"
+
 #include <QMainWindow>
 #include <QProcess>
 
@@ -40,5 +42,6 @@ private:
     void displayMessage(QString msg, bool isError);
     void updateDashboard(QString);
     void initializeDashboard();
+    void updateTaskList(bool, double);
 };
 #endif // MAINWINDOW_H

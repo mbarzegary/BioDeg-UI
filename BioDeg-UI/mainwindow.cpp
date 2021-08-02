@@ -4,6 +4,7 @@
 #include <QtMath>
 #include <QProcess>
 #include <QLocale>
+#include <QStyle>
 
 #include <QTextStream>
 #include <QFileDialog>
@@ -12,6 +13,7 @@
 QProcess *process;
 int totalSteps;
 double totalTime;
+Tasks currentTask, previousTask;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -34,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
     #endif
 
     displayMessage("Welcome to BioDeg UI, the graphical interface of BioDeg simulation code!", false);
+
 }
 
 MainWindow::~MainWindow()
@@ -228,6 +231,27 @@ void MainWindow::initializeDashboard()
 
     ui->massLossLabel->setText("0 %");
     ui->massLossProgressBar->setValue(0);
+
+    ui->lsTimeLabel->setText("");
+    ui->metalTimeLabel->setText("");
+    ui->clTimeLabel->setText("");
+    ui->filmTimeLabel->setText("");
+    ui->ohTimeLabel->setText("");
+    ui->nsTimeLabel->setText("");
+
+    ui->solveMetalCheck->isChecked() ? ui->metalIconLabel->clear() :
+        ui->metalIconLabel->setPixmap(style()->standardIcon(QStyle::SP_BrowserStop).pixmap(QSize(16, 16)));
+    ui->solveLSCheck->isChecked() ? ui->lsIconLabel->clear() :
+        ui->lsIconLabel->setPixmap(style()->standardIcon(QStyle::SP_BrowserStop).pixmap(QSize(16, 16)));
+    ui->solveClCheck->isChecked() ? ui->clIconLabel->clear() :
+        ui->clIconLabel->setPixmap(style()->standardIcon(QStyle::SP_BrowserStop).pixmap(QSize(16, 16)));
+    ui->solveFilmCheck->isChecked() ? ui->filmIconLabel->clear() :
+        ui->filmIconLabel->setPixmap(style()->standardIcon(QStyle::SP_BrowserStop).pixmap(QSize(16, 16)));
+    ui->solveOHCheck->isChecked() ? ui->ohIconLabel->clear() :
+        ui->ohIconLabel->setPixmap(style()->standardIcon(QStyle::SP_BrowserStop).pixmap(QSize(16, 16)));
+    ui->solveFluidCheck->isChecked() ? ui->nsIconLabel->clear() :
+        ui->nsIconLabel->setPixmap(style()->standardIcon(QStyle::SP_BrowserStop).pixmap(QSize(16, 16)));
+
 }
 
 void MainWindow::updateDashboard(QString output)
@@ -254,6 +278,70 @@ void MainWindow::updateDashboard(QString output)
             loss = 0;
         ui->massLossLabel->setText(QString("%1 %").arg(loss, 0, 'g', 3));
         ui->massLossProgressBar->setValue(int(loss));
+    }
+    else if (output.startsWith("solving"))
+    {
+        QString equation = output.split(" ", Qt::SkipEmptyParts).at(1);
+        if (equation == "level")
+            currentTask = Tasks::solveLSEquation;
+        else if (equation == "mg")
+            currentTask = Tasks::solveMetalEquation;
+        else if (equation == "cl")
+            currentTask = Tasks::solveClEquation;
+        else if (equation == "protective")
+            currentTask = Tasks::solveFilmEquation;
+        else if (equation == "ph")
+            currentTask = Tasks::solveOHEquation;
+        else if (equation == "navier-stokes")
+            currentTask = Tasks::solveFluidEquation;
+        updateTaskList(false, 0);
+    }
+    else if (output.startsWith("solved"))
+    {
+        double time = output.split(" ", Qt::SkipEmptyParts).at(2).toDouble();
+        updateTaskList(true, time);
+    }
+}
+
+void MainWindow::updateTaskList(bool done, double time)
+{
+    QPixmap pixmap;
+    if (done)
+        pixmap = style()->standardIcon(QStyle::SP_DialogApplyButton).pixmap(QSize(16, 16));
+    else
+        pixmap = style()->standardIcon(QStyle::SP_ArrowRight).pixmap(QSize(16, 16));
+    switch(currentTask)
+    {
+        case Tasks::solveMetalEquation:
+            ui->metalIconLabel->setPixmap(pixmap);
+            if (done)
+                ui->metalTimeLabel->setText(QString("%1 seconds").arg(time, 0, 'f', 2));
+            break;
+        case Tasks::solveFilmEquation:
+            ui->filmIconLabel->setPixmap(pixmap);
+            if (done)
+                ui->filmTimeLabel->setText(QString("%1 seconds").arg(time, 0, 'f', 2));
+            break;
+        case Tasks::solveLSEquation:
+            ui->lsIconLabel->setPixmap(pixmap);
+            if (done)
+                ui->lsTimeLabel->setText(QString("%1 seconds").arg(time, 0, 'f', 2));
+            break;
+        case Tasks::solveClEquation:
+            ui->clIconLabel->setPixmap(pixmap);
+            if (done)
+                ui->clTimeLabel->setText(QString("%1 seconds").arg(time, 0, 'f', 2));
+            break;
+        case Tasks::solveOHEquation:
+            ui->ohIconLabel->setPixmap(pixmap);
+            if (done)
+                ui->ohTimeLabel->setText(QString("%1 seconds").arg(time, 0, 'f', 2));
+            break;
+        case Tasks::solveFluidEquation:
+            ui->nsIconLabel->setPixmap(pixmap);
+            if (done)
+                ui->nsTimeLabel->setText(QString("%1 seconds").arg(time, 0, 'f', 2));
+            break;
     }
 }
 
