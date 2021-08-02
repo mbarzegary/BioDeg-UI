@@ -20,6 +20,9 @@ mainwindow.cpp
 mainwindow.h
 mainwindow.ui
 global.h
+aboutdialog.cpp
+aboutdialog.h
+aboutdialog.ui
 )
 
 target_link_libraries(BioDeg-UI PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)

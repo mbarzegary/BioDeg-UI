@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "aboutdialog.h"
 
 #include <QtMath>
 #include <QProcess>
@@ -453,4 +454,11 @@ void MainWindow::on_actionOutput_toggled(bool value)
 void MainWindow::on_outputDock_visibilityChanged(bool visible)
 {
     ui->actionOutput->setChecked(visible);
+}
+
+void MainWindow::on_actionAbout_ASLI_triggered()
+{
+    aboutdialog *about = new aboutdialog(this);
+    about->setWindowFlags(about->windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    about->show();
 }

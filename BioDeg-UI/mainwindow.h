@@ -35,6 +35,7 @@ private slots:
     void on_parallelCheck_toggled(bool checked);
     void on_actionOutput_toggled(bool arg1);
     void on_outputDock_visibilityChanged(bool visible);
+    void on_actionAbout_ASLI_triggered();
 
 private:
     Ui::MainWindow *ui;
