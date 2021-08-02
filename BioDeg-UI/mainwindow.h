@@ -31,6 +31,8 @@ private slots:
     void on_runButton_clicked();
     void on_stopButton_clicked();
     void on_parallelCheck_toggled(bool checked);
+    void on_actionOutput_toggled(bool arg1);
+    void on_outputDock_visibilityChanged(bool visible);
 
 private:
     Ui::MainWindow *ui;

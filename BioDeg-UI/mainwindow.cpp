@@ -27,6 +27,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->setupDock->setMinimumSize(ui->setupDock->minimumSize().width(), 200);
 
+    ui->actionOutput->setChecked(true);
+
     #ifdef Q_OS_WINDOWS
     ui->outputText->setFontFamily("Consolas");
     #endif
@@ -350,4 +352,17 @@ void MainWindow::on_stopButton_clicked()
 {
     if (process->state() == QProcess::ProcessState::Running)
         process->kill();
+}
+
+void MainWindow::on_actionOutput_toggled(bool value)
+{
+    if (value)
+        ui->outputDock->show();
+    else
+        ui->outputDock->hide();
+}
+
+void MainWindow::on_outputDock_visibilityChanged(bool visible)
+{
+    ui->actionOutput->setChecked(visible);
 }
