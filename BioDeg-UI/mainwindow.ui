@@ -609,8 +609,15 @@
     <addaction name="separator"/>
     <addaction name="actionOutput"/>
    </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionMeshgenerator"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
+   <addaction name="menuTools"/>
    <addaction name="menuHelp_Info"/>
   </widget>
   <widget class="QDockWidget" name="setupDock">
@@ -2596,6 +2603,11 @@
    </property>
    <property name="text">
     <string>Output</string>
+   </property>
+  </action>
+  <action name="actionMeshgenerator">
+   <property name="text">
+    <string>Mesh generator</string>
    </property>
   </action>
  </widget>

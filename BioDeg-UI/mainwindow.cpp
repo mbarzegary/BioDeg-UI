@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "aboutdialog.h"
+#include "preprocessdialog.h"
 
 #include <QtMath>
 #include <QProcess>
@@ -461,4 +462,11 @@ void MainWindow::on_actionAbout_ASLI_triggered()
     aboutdialog *about = new aboutdialog(this);
     about->setWindowFlags(about->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     about->show();
+}
+
+void MainWindow::on_actionMeshgenerator_triggered()
+{
+    preprocessdialog *preprocessor = new preprocessdialog(this);
+    preprocessor->setWindowFlags(preprocessor->windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    preprocessor->show();
 }

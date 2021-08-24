@@ -37,6 +37,8 @@ private slots:
     void on_outputDock_visibilityChanged(bool visible);
     void on_actionAbout_ASLI_triggered();
 
+    void on_actionMeshgenerator_triggered();
+
 private:
     Ui::MainWindow *ui;
     QString prepareArguments();
