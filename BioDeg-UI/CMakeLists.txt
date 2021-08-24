@@ -23,6 +23,9 @@ global.h
 aboutdialog.cpp
 aboutdialog.h
 aboutdialog.ui
+preprocessdialog.h
+preprocessdialog.cpp
+preprocessdialog.ui
 )
 
 target_link_libraries(BioDeg-UI PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
