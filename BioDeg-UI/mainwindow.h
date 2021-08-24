@@ -18,6 +18,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void displayMessage(QString msg, bool isError);
+
 private slots:
     void readOutput();
     void readError();
@@ -36,13 +39,11 @@ private slots:
     void on_actionOutput_toggled(bool arg1);
     void on_outputDock_visibilityChanged(bool visible);
     void on_actionAbout_ASLI_triggered();
-
     void on_actionMeshgenerator_triggered();
 
 private:
     Ui::MainWindow *ui;
     QString prepareArguments();
-    void displayMessage(QString msg, bool isError);
     void updateDashboard(QString);
     void initializeDashboard();
     void updateTaskList(bool, double);
