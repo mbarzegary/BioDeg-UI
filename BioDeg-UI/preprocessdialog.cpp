@@ -29,7 +29,7 @@ QString preprocessdialog::prepareArguments()
 
     out << " -mesh_file \"" << ui->meshFileNameEdit->text() + "\"";
     if (!ui->outputFileEdit->text().trimmed().isEmpty())
-        out << " -output_file " << ui->outputFileEdit->text();
+        out << " -output_file \"" << ui->outputFileEdit->text() + "\"";
     out << " -write_vtk ";
     if (ui->writeVTKCheck->isChecked())
         out << "1 ";
@@ -57,7 +57,7 @@ QString preprocessdialog::prepareArguments()
         out << "0 ";
 
     out << " -parallel ";
-    if (ui->parallelGroup->isChecked())
+    if (ui->parallelCheck->isChecked())
         out << "1 ";
     else
         out << "0 ";
@@ -86,15 +86,15 @@ void preprocessdialog::processFinished(int exitCode, QProcess::ExitStatus exitSt
     QMessageBox qmb;
     if (exitStatus == QProcess::ExitStatus::NormalExit)
         if (exitCode == 0)
-            qmb.setText("Process finished successfully!");
+            qmb.setText("Mesh generation process finished successfully!");
         else
-            qmb.setText("Process finished with error!");
+            qmb.setText("Mesh generation process finished with error!");
     else
-        qmb.setText("Process interrupted!");
+        qmb.setText("Mesh generation process interrupted!");
     qmb.exec();
     ui->runButton->setEnabled(true);
     ui->stopButton->setEnabled(false);
-    ui->runButton->setText("Run simulation");
+    ui->runButton->setText("Generate mesh");
 }
 
 
@@ -113,7 +113,7 @@ void preprocessdialog::on_meshFileBrowseButton_clicked()
 void preprocessdialog::on_outputFileBrowseButton_clicked()
 {
     QFileDialog* qfd = new QFileDialog(this, "Choose Output File", "", "*.mesh");
-    QString s = qfd->getOpenFileName(this, "Choose Output File", "", "*.mesh");
+    QString s = qfd->getSaveFileName(this, "Choose Output File", "", "*.mesh");
     delete qfd;
 
     if (s.toStdString().empty())
