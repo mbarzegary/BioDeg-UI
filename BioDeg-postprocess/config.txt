@@ -1,3 +1,0 @@
-results/output_6.pvd
-Mg
-Metal ions concentration
