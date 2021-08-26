@@ -1,3 +1,5 @@
+#include <QString>
+
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
@@ -11,6 +13,13 @@ enum class Tasks
     solveFluidEquation,
     savingVTKOutput,
     None
+};
+
+struct Simulation
+{
+    QString outputDir;
+    int mpiSize;
+    bool vtkOutput;
 };
 
 #endif // GLOBAL_H

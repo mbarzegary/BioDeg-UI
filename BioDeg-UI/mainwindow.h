@@ -40,6 +40,7 @@ private slots:
     void on_outputDock_visibilityChanged(bool visible);
     void on_actionAbout_ASLI_triggered();
     void on_actionMeshgenerator_triggered();
+    void on_viewResultsButton_clicked();
 
 private:
     Ui::MainWindow *ui;

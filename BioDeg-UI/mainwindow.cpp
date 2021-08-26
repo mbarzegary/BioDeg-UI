@@ -16,6 +16,7 @@ QProcess *process;
 int totalSteps;
 double totalTime;
 Tasks currentTask, previousTask;
+Simulation currentSimulation;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -436,6 +437,9 @@ void MainWindow::on_runButton_clicked()
     ui->stopButton->setEnabled(true);
     ui->runButton->setText("Running...");
     initializeDashboard();
+    currentSimulation.outputDir = ui->outputDirEdit->text();
+    currentSimulation.mpiSize = ui->parallelCheck->isChecked() ? ui->mpiSpin->value() : 1;
+    currentSimulation.vtkOutput = ui->writeVTKCheck->isChecked();
 }
 
 void MainWindow::on_stopButton_clicked()
@@ -469,4 +473,34 @@ void MainWindow::on_actionMeshgenerator_triggered()
     preprocessdialog *preprocessor = new preprocessdialog(this);
     preprocessor->setWindowFlags(preprocessor->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     preprocessor->show();
+}
+
+void MainWindow::on_viewResultsButton_clicked()
+{
+    if (!currentSimulation.vtkOutput)
+    {
+        QMessageBox qmb;
+        qmb.setText("Current simulation is not configured to write graphical output!");
+        qmb.exec();
+    }
+
+    QString fileName = currentSimulation.outputDir + "/output_" + QString::number(currentSimulation.mpiSize) + ".pvd";
+    QString arrayName = "Mg";
+    QString title = "Metal ions concentration";
+
+    QFile file("../BioDeg-postprocess/config.txt");
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+
+    QTextStream out(&file);
+    out << fileName << "\n";
+    out << arrayName << "\n";
+    out << title << "\n";
+
+    QProcess *pythonProcess = new QProcess(this);
+    QString program = "python";
+    QStringList args;
+    args << "run.py";
+    pythonProcess->setWorkingDirectory("../BioDeg-postprocess/");
+    pythonProcess->start(program, args);
 }
