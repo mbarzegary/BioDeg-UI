@@ -485,8 +485,32 @@ void MainWindow::on_viewResultsButton_clicked()
     }
 
     QString fileName = currentSimulation.outputDir + "/output_" + QString::number(currentSimulation.mpiSize) + ".pvd";
-    QString arrayName = "Mg";
-    QString title = "Metal ions concentration";
+    QString arrayName;
+    QString title;
+
+    switch (ui->graphicOutputCombo->currentIndex())
+    {
+        case 0:
+            arrayName = "Mg";
+            title = "Metal ions concentration (g/mm^3)";
+            break;
+        case 1:
+            arrayName = "F";
+            title = "Protective film";
+            break;
+        case 2:
+            arrayName = "Cl";
+            title = "Cl- concentration (g/mm^3)";
+            break;
+        case 3:
+            arrayName = "OH";
+            title = "OH- concentration (g/mm^3)";
+            break;
+        case 4:
+            arrayName = "pH";
+            title = "pH";
+            break;
+    }
 
     QFile file("../BioDeg-postprocess/config.txt");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
