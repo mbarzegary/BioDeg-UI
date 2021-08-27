@@ -12,6 +12,12 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
+#include <QtCharts/QChartView>
+#include <QtCharts/QLineSeries>
+#include <QDialog>
+
+QT_CHARTS_USE_NAMESPACE
+
 QProcess *process;
 int totalSteps;
 double totalTime;
@@ -527,4 +533,31 @@ void MainWindow::on_viewResultsButton_clicked()
     args << "run.py";
     pythonProcess->setWorkingDirectory("../BioDeg-postprocess/");
     pythonProcess->start(program, args);
+}
+
+void MainWindow::on_plotLossButton_clicked()
+{
+    QLineSeries *series = new QLineSeries();
+    series->append(0, 6);
+    series->append(2, 4);
+    series->append(3, 8);
+
+    QChart *chart = new QChart();
+    chart->legend()->hide();
+    chart->addSeries(series);
+    chart->createDefaultAxes();
+    chart->setTitle("Simple plot");
+
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+
+    QHBoxLayout *HLayout = new QHBoxLayout();
+    HLayout->addWidget(chartView);
+
+    QDialog *dialog = new QDialog(this);
+    dialog->setWindowFlags(dialog->windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    dialog->setLayout(HLayout);
+    dialog->setWindowTitle("Plot");
+    dialog->resize(400, 300);
+    dialog->show();
 }
