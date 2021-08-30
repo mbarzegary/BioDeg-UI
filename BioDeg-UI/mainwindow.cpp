@@ -537,16 +537,29 @@ void MainWindow::on_viewResultsButton_clicked()
 
 void MainWindow::on_plotLossButton_clicked()
 {
+    QString fileName = currentSimulation.outputDir + "/output.txt";
     QLineSeries *series = new QLineSeries();
-    series->append(0, 6);
-    series->append(2, 4);
-    series->append(3, 8);
+
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    QTextStream in(&file);
+    while (!in.atEnd())
+    {
+        QString line = in.readLine();
+        if (line.split("\t", Qt::SkipEmptyParts).length() > 3)
+            continue;
+        float time = line.split("\t", Qt::SkipEmptyParts).at(0).toFloat();
+        float loss = line.split("\t", Qt::SkipEmptyParts).at(2).toFloat();
+        series->append(time, loss);
+    }
 
     QChart *chart = new QChart();
     chart->legend()->hide();
     chart->addSeries(series);
     chart->createDefaultAxes();
-    chart->setTitle("Simple plot");
+    chart->setTitle("Mass loss vs. time");
 
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
@@ -557,7 +570,7 @@ void MainWindow::on_plotLossButton_clicked()
     QDialog *dialog = new QDialog(this);
     dialog->setWindowFlags(dialog->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     dialog->setLayout(HLayout);
-    dialog->setWindowTitle("Plot");
+    dialog->setWindowTitle("Mass loss plot");
     dialog->resize(400, 300);
     dialog->show();
 }
