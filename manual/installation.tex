@@ -1,0 +1,157 @@
+Installing \biodeg{} is a straightforward procedure. You need to install a couple of prerequisites and download and run \biodeg{}; that's all you need to do. But for advanced users, it might be necessary or more interesting to build everything from scratch to have more control on customizing features and improving performance. As a result, we have provided 2 sets of instructions, one for easy installation using the compiled binaries and one for building things from the source codes. The installation instructions are provided for Linux and Windows operating systems, but the procedure should be very similar for macOS. 
+
+It is possible to use \biodeg{} without the user interface (UI) if this scenario is required by the user (like for running it on a super-computer). The core of \biodeg{} is written in FreeFEM, so in this case, all you need to do is to installing/building FreeFEM and the required libraries, and then, cloning the \href{https://github.com/mbarzegary/BioDeg}{\biodeg{} core repository} and running the code according the provided instruction in the README file of the repository.
+
+The \biodeg{} UI contains all the bundles for pre-processing and post-processing simulation input/results. These features are being hosted on their own repositories (), but with obtaining the user interface, you can have them all together. If you choose to use \biodeg{} without the user interface and still want to use the provided script for pre/post-processing, you may need to obtain them separately.
+
+For building the source codes, we assume standard tools and libraries like CMake, compilers (for C, C++ and Fortran), and MPI libraries are pre-installed on your machine. If you are going to build \biodeg{} and required dependencies on a super-computer or cluster, you should notice that most high-performance computers would have the latest version of these compilers and libraries in the default environment.
+
+\subsection{Easy installation}
+
+The simplest way to install and run \biodeg{} is via the pre-built binaries you can download from GitHub. The same principle applies to prerequisites, which is in this case FreeFEM only. So, following these steps will install \biodeg{} on your machine:
+
+\begin{enumerate}
+\item
+Download FreeFEM installer for the platform you use and install it. You can find the {.exe} installer for Windows and the {.deb} installer for Linux (Ubuntu) in the \href{https://github.com/FreeFem/FreeFem-sources/releases}{Release page of FreeFEM repository}. You will find these files under the Assets section of the latest (or any other version). Execute the download file and follow the installation procedure appearing on your screen.
+\item
+Download \biodeg{} tarballs for your preferred platform (Windows or Linux) from the \href{https://github.com/mbarzegary/BioDeg-UI/releases}{Release page of \biodeg{} repository}. This is indeed the \biodeg{} UI bundle that contains the \biodeg{} core, the user interface, the pre-processor, and the post-processor.
+\item
+Extract the downloaded tarball (zip) file and execute \verb|runBioDeg.cmd| in Windows or \verb|runBioDeg.sh| in Linux. By doing this you see \biodeg{} interface showing up on the screen.
+\end{enumerate}
+
+
+
+
+\subsection{Advanced installation for improved performance/flexibility}
+
+Building \biodeg{} and required libraries from source code will increase the performance since the program and the libraries will get optimized for the platform in which they are going to run. Moreover, this enables users to customize the software in the way they want. Additionally, this is an inevitable aspect if you are going to use \biodeg{} for development purposes or you want to contribute to it.
+
+\subsubsection{Compiling and installing external libraries}
+
+\paragraph{PETSc and Qt}
+
+\biodeg{} uses \href{https://petsc.org/release/}{PETSc} for parallel computing. You may choose to build a customized version of PETSc or use the version that comes with FreeFEM. The version that is bundled with FreeFEM has the following build configuration:
+
+\begin{verbatim}
+--with-debugging=0 COPTFLAGS="-O3 -mtune=native" CXXOPTFLAGS="-O3 -mtune=native" 
+FOPTFLAGS="-O3 -mtune=native" --with-cxx-dialect=C++11 --with-ssl=0 --with-x=0 
+--with-fortran-bindings=0 --with-cc=/usr/ --with-scalar-type=complex
+--with-blaslapack-include= --with-blaslapack-lib="-llapack -lblas"
+--with-scalapack --with-metis --with-ptscotch --with-suitesparse --with-suitesparse-lib=
+"-Wl, -lumfpack -lklu -lcholmod -lbtf -lccolamd -lcolamd -lcamd -lamd -lsuitesparseconfig"
+--with-mumps --with-parmetis --with-tetgen --download-slepc --download-hpddm PETSC_ARCH=fc
+\end{verbatim}
+
+You may need to build your own version if this configuration is not suitable for you. You can find the instruction for building custom version of PETSc \href{https://petsc.org/release/install/}{here}.
+
+\biodeg{} UI is developed using \href{https://www.qt.io/}{Qt} so it should be installed on your system if you want to compile \biodeg{} UI. You can find the installation instruction for various platforms \href{https://doc.qt.io/qt-5/gettingstarted.html}{here}.
+
+\paragraph{FreeFEM}
+
+The full build documentation of FreeFEM is available \href{https://doc.freefem.org/introduction/installation.html}{here}, but the following steps is what you need to do to build it on any platform. By default, FreeFEM downloads and builds PETSc during the build process.
+
+\begin{enumerate}
+\item Install required prerequisites
+\begin{verbatim}
+$ sudo apt-get install cpp freeglut3-dev g++ gcc gfortran m4 make patch pkg-config
+  wget python unzip liblapack-dev libhdf5-dev libgsl-dev autoconf automake 
+  autotools-dev bison flex gdb git cmake
+$ sudo apt-get install mpich
+\end{verbatim}
+
+\item Make a new directory for FreeFEM and navigate to it
+\begin{verbatim}
+$ cd
+$ mkdir FreeFEM
+$ cd FreeFEM/
+\end{verbatim}
+
+\item Clone the source code repository and navigate to the downloaded directory
+\begin{verbatim}
+$ git clone https://github.com/FreeFem/FreeFem-sources.git
+$ cd FreeFem-sources/
+\end{verbatim}
+
+\item Generate the configure scripts
+\begin{verbatim}
+$ autoreconf -i
+\end{verbatim}
+
+\item Run the configure script to specify build options, including the location to install the program
+\begin{verbatim}
+$ ./configure --enable-download --enable-optim 
+  --prefix=/home/<your_profile>/FreeFEM/freefem-install
+\end{verbatim}
+
+\item Download the source code of 3rd-party libraries
+\begin{verbatim}
+$ ./3rdparty/getall -a
+\end{verbatim}
+
+\item Build PETSc and all the 3rd-party libraries
+\begin{verbatim}
+$ cd 3rdparty/ff-petsc/
+$ make petsc-slepc
+\end{verbatim}
+
+\item Navigate back and reconfigure the build
+\begin{verbatim}
+$ cd -
+$ ./reconfigure
+\end{verbatim}
+
+\item Build the source code of FreeFEM using 4 parallel processes (or nay other number you like
+\begin{verbatim}
+$ make -j4
+\end{verbatim}
+
+\item Check the build by running some examples
+\begin{verbatim}
+$ make -j2 check
+\end{verbatim}
+
+\item Install the built binaries to the specified directory
+\begin{verbatim}
+$ make install
+\end{verbatim}
+
+\item Navigate to the installation location and run FreeFEM
+\begin{verbatim}
+$ cd ../freefem-install/
+$ cd bin/
+$ ./FreeFem++
+\end{verbatim}
+
+\item Navigate to the home directory and add FreeFEM to the PATH variable in the \verb|.bashrc`| file
+\begin{verbatim}
+$ cd
+$ nano .bashrc
+\end{verbatim}
+and add \verb|export PATH=$PATH:/home/<your_profile>/FreeFEM/freefem-install/bin| to the end of the file and save (press \textit{Ctrl+X} and then \textit{Y}).
+
+\end{enumerate}
+
+After doing this, you should be abale to run FreeFEM. Start a new terminal and run \verb|FreeFem++| and \verb|FreeFem++-mpi|. See ing no error in the output means that you have successfully installed it.
+
+\subsubsection{Building and installing \biodeg{}}
+
+Since \biodeg{} UI is developed using Qt, compiling the source files is quite straightforward. Upon installing Qt on your machine, clone the \href{https://github.com/mbarzegary/BioDeg-UI}{\biodeg{} UI repository} and follow one of the following scenarios to build it. 
+
+\paragraph{Build \biodeg{} UI using Qt Creator IDE}
+
+This is the simplest technique to build the program, and it has a similar procedure for all the supported platforms. Qt Creator is the default IDE for Qt development, so it is automatically installed along with Qt. Simply open the Qt project file (\verb|CMakeLists.txt|) in Qt Creator (by executing \verb|qtcreator CMakeLists.txt| or selecting \textit{File->Open Project} from the IDE) and build the project (by pressing \textit{Shift+B}).
+
+\paragraph{Build \biodeg{} UI using Qt tools}
+
+Building the source files using CMake is also quite simple. Navigate to the source files directory (the cloned repository) and run the following commands (this assumes that you have already added Qt \verb|bin| directory to the `PATH` variable so that the CMake script can find Qt libraries and binaries):
+
+\begin{verbatim}
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+\end{verbatim}
+
+In Windows, you may need to call the correct build system installed along with Qt. For example, by assuming that you have installed the MinGW integration for Qt, the \verb|make| command should be written as \verb|mingw32-make|.
+
+After doing this, you can find the \biodeg{} UI executable in the source directory and run it by executing \verb|./BioDeg| in Linux or \verb|.\BioDeg.exe| in Windows.

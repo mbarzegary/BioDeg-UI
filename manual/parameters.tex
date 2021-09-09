@@ -1,0 +1,824 @@
+\subsection{Geometry and mesh parameters}
+\label{parameters:mesh}
+
+\begin{itemize}
+\item {\it Parameter name:} {\tt mesh\_file}
+\phantomsection
+\label{parameters:mesh_file}
+
+\index[prmindex]{mesh\_file}
+\index[prmindexfull]{Geometry and mesh!mesh file}
+
+{\it Default:} Should be provided
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any string value 
+
+
+\item {\it Parameter name:} {\tt label\_scaffold}
+\phantomsection
+\label{parameters:label_scaffold}
+
+\index[prmindex]{label\_scaffold}
+\index[prmindexfull]{Geometry and mesh!label scaffold}
+
+{\it Default:} 1
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any positive integer value 
+
+
+\item {\it Parameter name:} {\tt label\_medium}
+\phantomsection
+\label{parameters:label_medium}
+
+\index[prmindex]{label\_medium}
+\index[prmindexfull]{Geometry and mesh!label medium}
+
+{\it Default:} 2
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any positive integer value 
+
+
+\item {\it Parameter name:} {\tt label\_wall}
+\phantomsection
+\label{parameters:label_wall}
+
+\index[prmindex]{label\_wall}
+\index[prmindexfull]{Geometry and mesh!label wall}
+
+{\it Default:} 3
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any positive integer value 
+
+
+\item {\it Parameter name:} {\tt label\_inlet}
+\phantomsection
+\label{parameters:label_inlet}
+
+\index[prmindex]{label\_inlet}
+\index[prmindexfull]{Geometry and mesh!label inlet}
+
+{\it Default:} 4
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any positive integer value 
+
+
+\item {\it Parameter name:} {\tt label\_outlet}
+\phantomsection
+\label{parameters:label_outlet}
+
+\index[prmindex]{label\_outlet}
+\index[prmindexfull]{Geometry and mesh!label outlet}
+
+{\it Default:} 5
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any positive integer value 
+
+
+\item {\it Parameter name:} {\tt box\_length}
+\phantomsection
+\label{parameters:box_length}
+
+\index[prmindex]{box\_length}
+\index[prmindexfull]{Geometry and mesh!box length}
+
+{\it Default:} 20.0
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any positive floating point number 
+
+
+\item {\it Parameter name:} {\tt cube\_size\_x}
+\phantomsection
+\label{parameters:cube_size_x}
+
+\index[prmindex]{cube\_size\_x}
+\index[prmindexfull]{Geometry and mesh!cube size x}
+
+{\it Default:} 13.0
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any positive floating point number 
+
+
+\item {\it Parameter name:} {\tt cube\_size\_y}
+\phantomsection
+\label{parameters:cube_size_y}
+
+\index[prmindex]{cube\_size\_y}
+\index[prmindexfull]{Geometry and mesh!cube size y}
+
+{\it Default:} 13.0
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any positive floating point number 
+
+
+\item {\it Parameter name:} {\tt cube\_size\_z}
+\phantomsection
+\label{parameters:cube_size_z}
+
+\index[prmindex]{cube\_size\_z}
+\index[prmindexfull]{Geometry and mesh!cube size z}
+
+{\it Default:} 4.0
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any positive floating point number 
+
+
+\item {\it Parameter name:} {\tt mesh\_size}
+\phantomsection
+\label{parameters:mesh_size}
+
+\index[prmindex]{mesh\_size}
+\index[prmindexfull]{Geometry and mesh!mesh size}
+
+{\it Default:} 32
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any positive integer number 
+
+
+\item {\it Parameter name:} {\tt refine\_initial\_mesh}
+\phantomsection
+\label{parameters:refine_initial_mesh}
+
+\index[prmindex]{refine\_initial\_mesh}
+\index[prmindexfull]{Geometry and mesh!refine initial mesh}
+
+{\it Default:} false (0)
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} A boolean value (1 or 0)
+
+
+\item {\it Parameter name:} {\tt mshmet\_error}
+\phantomsection
+\label{parameters:mshmet_error}
+
+\index[prmindex]{mshmet\_error}
+\index[prmindexfull]{Geometry and mesh!mshmet error}
+
+{\it Default:} 0.01
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt mesh\_size\_min}
+\phantomsection
+\label{parameters:mesh_size_min}
+
+\index[prmindex]{mesh\_size\_min}
+\index[prmindexfull]{Geometry and mesh!mesh size min}
+
+{\it Default:} 0.04
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt mesh\_size\_max}
+\phantomsection
+\label{parameters:mesh_size_max}
+
+\index[prmindex]{mesh\_size\_max}
+\index[prmindexfull]{Geometry and mesh!mesh size max}
+
+{\it Default:} 0.8
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any floating point number
+
+\end{itemize}
+
+
+
+\subsection{Materials and boundary conditions parameters}
+\label{parameters:material}
+
+\begin{itemize}
+\item {\it Parameter name:} {\tt material\_density}
+\phantomsection
+\label{parameters:material_density}
+
+\index[prmindex]{material\_density}
+\index[prmindexfull]{Materials and boundary conditions!material density}
+
+{\it Default:} 1.735e-3
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt film\_density}
+\phantomsection
+\label{parameters:film_density}
+
+\index[prmindex]{film\_density}
+\index[prmindexfull]{Materials and boundary conditions!film density}
+
+{\it Default:} 2.3446e-3
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt material\_satur}
+\phantomsection
+\label{parameters:material_satur}
+
+\index[prmindex]{material\_satur}
+\index[prmindexfull]{Materials and boundary conditions!material satur}
+
+{\it Default:} 0.134e-3
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt material\_eps}
+\phantomsection
+\label{parameters:material_eps}
+
+\index[prmindex]{material\_eps}
+\index[prmindexfull]{Materials and boundary conditions!material eps}
+
+{\it Default:} 0.55
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any floating point number between 0 and 1
+
+
+\item {\it Parameter name:} {\tt material\_tau}
+\phantomsection
+\label{parameters:material_tau}
+
+\index[prmindex]{material\_tau}
+\index[prmindexfull]{Materials and boundary conditions!material tau}
+
+{\it Default:} 1.0
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt d\_mg}
+\phantomsection
+\label{parameters:d_mg}
+
+\index[prmindex]{d\_mg}
+\index[prmindexfull]{Materials and boundary conditions!d mg}
+
+{\it Default:} 0.05
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt d\_cl}
+\phantomsection
+\label{parameters:d_cl}
+
+\index[prmindex]{d\_cl}
+\index[prmindexfull]{Materials and boundary conditions!d cl}
+
+{\it Default:} 0.05
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt d\_oh}
+\phantomsection
+\label{parameters:d_oh}
+
+\index[prmindex]{d\_oh}
+\index[prmindexfull]{Materials and boundary conditions!d oh}
+
+{\it Default:} 25.2
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt k1}
+\phantomsection
+\label{parameters:k1}
+
+\index[prmindex]{k1}
+\index[prmindexfull]{Materials and boundary conditions!k1}
+
+{\it Default:} 7.0
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt k2}
+\phantomsection
+\label{parameters:k2}
+
+\index[prmindex]{k2}
+\index[prmindexfull]{Materials and boundary conditions!k2}
+
+{\it Default:} 1e15
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt fluid\_nu}
+\phantomsection
+\label{parameters:fluid_nu}
+
+\index[prmindex]{fluid\_nu}
+\index[prmindexfull]{Materials and boundary conditions!fluid nu}
+
+{\it Default:} 0.85
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt fluid\_in\_x}
+\phantomsection
+\label{parameters:fluid_in_x}
+
+\index[prmindex]{fluid\_in\_x}
+\index[prmindexfull]{Materials and boundary conditions!fluid in x}
+
+{\it Default:} 0.1
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt fluid\_in\_y}
+\phantomsection
+\label{parameters:fluid_in_y}
+
+\index[prmindex]{fluid\_in\_y}
+\index[prmindexfull]{Materials and boundary conditions!fluid in y}
+
+{\it Default:} 0
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt fluid\_in\_z}
+\phantomsection
+\label{parameters:fluid_in_z}
+
+\index[prmindex]{fluid\_in\_z}
+\index[prmindexfull]{Materials and boundary conditions!fluid in z}
+
+{\it Default:} 0
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt initial\_cl}
+\phantomsection
+\label{parameters:initial_cl}
+
+\index[prmindex]{initial\_cl}
+\index[prmindexfull]{Materials and boundary conditions!initial cl}
+
+{\it Default:} 5.175e-6
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt initial\_oh}
+\phantomsection
+\label{parameters:initial_oh}
+
+\index[prmindex]{initial\_oh}
+\index[prmindexfull]{Materials and boundary conditions!initial oh}
+
+{\it Default:} 1e-7
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any floating point number
+
+
+\end{itemize}
+
+
+
+\subsection{Solver parameters}
+\label{parameters:sovler}
+
+\begin{itemize}
+\item {\it Parameter name:} {\tt solve\_mg}
+\phantomsection
+\label{parameters:solve_mg}
+
+\index[prmindex]{solve\_mg}
+\index[prmindexfull]{Solver!solve mg}
+
+{\it Default:} true (1)
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any boolean value (1 or 0)
+
+
+\item {\it Parameter name:} {\tt solve\_film}
+\phantomsection
+\label{parameters:solve_film}
+
+\index[prmindex]{solve\_film}
+\index[prmindexfull]{Solver!solve film}
+
+{\it Default:} true (1)
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any boolean value (1 or 0)
+
+
+\item {\it Parameter name:} {\tt solve\_cl}
+\phantomsection
+\label{parameters:solve_cl}
+
+\index[prmindex]{solve\_cl}
+\index[prmindexfull]{Solver!solve cl}
+
+{\it Default:} true (1)
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any boolean value (1 or 0)
+
+
+\item {\it Parameter name:} {\tt solve\_oh}
+\phantomsection
+\label{parameters:solve_oh}
+
+\index[prmindex]{solve\_oh}
+\index[prmindexfull]{Solver!solve oh}
+
+{\it Default:} true (1)
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any boolean value (1 or 0)
+
+
+\item {\it Parameter name:} {\tt solve\_ls}
+\phantomsection
+\label{parameters:solve_ls}
+
+\index[prmindex]{solve\_ls}
+\index[prmindexfull]{Solver!solve ls}
+
+{\it Default:} true (1)
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any boolean value (1 or 0)
+
+
+\item {\it Parameter name:} {\tt solve\_fluid}
+\phantomsection
+\label{parameters:solve_fluid}
+
+\index[prmindex]{solve\_fluid}
+\index[prmindexfull]{Solver!solve fluid}
+
+{\it Default:} false (0)
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any boolean value (1 or 0)
+
+
+\item {\it Parameter name:} {\tt solve\_full\_ns}
+\phantomsection
+\label{parameters:solve_full_ns}
+
+\index[prmindex]{solve\_full\_ns}
+\index[prmindexfull]{Solver!solve full ns}
+
+{\it Default:} true (1)
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any boolean value (1 or 0)
+
+
+\item {\it Parameter name:} {\tt write\_fluid\_output}
+\phantomsection
+\label{parameters:write_fluid_output}
+
+\index[prmindex]{write\_fluid\_output}
+\index[prmindexfull]{Solver!write fluid output}
+
+{\it Default:} true (1)
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any boolean value (1 or 0)
+
+
+\item {\it Parameter name:} {\tt solve\_fluid\_each}
+\phantomsection
+\label{parameters:solve_fluid_each}
+
+\index[prmindex]{solve\_fluid\_each}
+\index[prmindexfull]{Solver!solve fluid each}
+
+{\it Default:} 10
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any positive integer number
+
+
+\item {\it Parameter name:} {\tt time\_step}
+\phantomsection
+\label{parameters:time_step}
+
+\index[prmindex]{time\_step}
+\index[prmindexfull]{Solver!time step}
+
+{\it Default:} 0.025
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt final\_time}
+\phantomsection
+\label{parameters:final_time}
+
+\index[prmindex]{final\_time}
+\index[prmindexfull]{Solver!final time}
+
+{\it Default:} 21.0
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt do\_redistance}
+\phantomsection
+\label{parameters:do_redistance}
+
+\index[prmindex]{do\_redistance}
+\index[prmindexfull]{Solver!do redistance}
+
+{\it Default:} true (1)
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any boolean value (1 or 0)
+
+
+\item {\it Parameter name:} {\tt redistance\_time}
+\phantomsection
+\label{parameters:redistance_time}
+
+\index[prmindex]{redistance\_time}
+\index[prmindexfull]{Solver!redistance time}
+
+{\it Default:} 1.0
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any floating point number
+
+\end{itemize}
+
+
+\subsection{Output parameters}
+\label{parameters:output}
+
+\begin{itemize}
+\item {\it Parameter name:} {\tt text\_output\_file}
+\phantomsection
+\label{parameters:text_output_file}
+
+\index[prmindex]{text\_output\_file}
+\index[prmindexfull]{Output!text output file}
+
+{\it Default:} "output/result.txt"
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any string value referring to a valid path
+
+
+\item {\it Parameter name:} {\tt write\_vtk}
+\phantomsection
+\label{parameters:write_vtk}
+
+\index[prmindex]{write\_vtk}
+\index[prmindexfull]{Output!write vtk}
+
+{\it Default:} true (1)
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any boolean value (1 or 0)
+
+
+\item {\it Parameter name:} {\tt vtk\_output\_name}
+\phantomsection
+\label{parameters:vtk_output_name}
+
+\index[prmindex]{vtk\_output\_name}
+\index[prmindexfull]{Output!vtk output name}
+
+{\it Default:} "output/output"
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any string value referring to a valid path
+
+
+\item {\it Parameter name:} {\tt save\_each}
+\phantomsection
+\label{parameters:save_each}
+
+\index[prmindex]{save\_each}
+\index[prmindexfull]{Output!save each}
+
+{\it Default:} 0.25
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt save\_last\_state}
+\phantomsection
+\label{parameters:save_last_state}
+
+\index[prmindex]{save\_last\_state}
+\index[prmindexfull]{Output!save last state}
+
+{\it Default:} true (1)
+
+{\it Description:} [Standard] 
+
+{\it Possible values:} Any boolean value (1 or 0)
+
+
+\item {\it Parameter name:} {\tt output\_per\_area}
+\phantomsection
+\label{parameters:output_per_area}
+
+\index[prmindex]{output\_per\_area}
+\index[prmindexfull]{Output!output per area}
+
+{\it Default:} false (0)
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any boolean value (1 or 0)
+
+
+\item {\it Parameter name:} {\tt save\_multiplier}
+\phantomsection
+\label{parameters:save_multiplier}
+
+\index[prmindex]{save\_multiplier}
+\index[prmindexfull]{Output!save multiplier}
+
+{\it Default:} 1.0
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt export\_scaffold}
+\phantomsection
+\label{parameters:export_scaffold}
+
+\index[prmindex]{export\_scaffold}
+\index[prmindexfull]{Output!export scaffold}
+
+{\it Default:} false (0)
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any boolean value (1 or 0)
+
+
+\item {\it Parameter name:} {\tt export\_scaffold\_each}
+\phantomsection
+\label{parameters:export_scaffold_each}
+
+\index[prmindex]{export\_scaffold\_each}
+\index[prmindexfull]{Output!export scaffold each}
+
+{\it Default:} 1.0
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any floating point number
+
+
+\item {\it Parameter name:} {\tt export\_scaffold\_volume}
+\phantomsection
+\label{parameters:export_scaffold_volume}
+
+\index[prmindex]{export\_scaffold\_volume}
+\index[prmindexfull]{Output!export scaffold volume}
+
+{\it Default:} true (1)
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any boolean value (1 or 0)
+
+
+\item {\it Parameter name:} {\tt export\_scaffold\_surface}
+\phantomsection
+\label{parameters:export_scaffold_surface}
+
+\index[prmindex]{export\_scaffold\_surface}
+\index[prmindexfull]{Output!export scaffold surface}
+
+{\it Default:} true (1)
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any boolean value (1 or 0)
+
+
+\item {\it Parameter name:} {\tt save\_initial\_mesh}
+\phantomsection
+\label{parameters:save_initial_mesh}
+
+\index[prmindex]{save\_initial\_mesh}
+\index[prmindexfull]{Output!save initial mesh}
+
+{\it Default:} false (0)
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any boolean value (1 or 0)
+
+
+\item {\it Parameter name:} {\tt save\_initial\_partitioned\_mesh}
+\phantomsection
+\label{parameters:save_initial_partitioned_mesh}
+
+\index[prmindex]{save\_initial\_partitioned\_mesh}
+\index[prmindexfull]{Output!save initial partitioned mesh}
+
+{\it Default:} false (0)
+
+{\it Description:} [Advanced] 
+
+{\it Possible values:} Any boolean value (1 or 0)
+
+
+\end{itemize}
