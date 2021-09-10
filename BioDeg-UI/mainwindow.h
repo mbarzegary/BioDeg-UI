@@ -42,6 +42,7 @@ private slots:
     void on_actionMeshgenerator_triggered();
     void on_viewResultsButton_clicked();
     void on_plotLossButton_clicked();
+    void on_actionHelp_triggered();
 
 private:
     Ui::MainWindow *ui;

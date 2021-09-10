@@ -11,6 +11,7 @@
 #include <QTextStream>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QDesktopServices>
 
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
@@ -472,6 +473,13 @@ void MainWindow::on_actionAbout_ASLI_triggered()
     aboutdialog *about = new aboutdialog(this);
     about->setWindowFlags(about->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     about->show();
+}
+
+void MainWindow::on_actionHelp_triggered()
+{
+    QString file = QFileInfo("../doc/manual/manual.pdf").absoluteFilePath();
+    QUrl url = QUrl::fromLocalFile(file);
+    QDesktopServices::openUrl(url);
 }
 
 void MainWindow::on_actionMeshgenerator_triggered()
