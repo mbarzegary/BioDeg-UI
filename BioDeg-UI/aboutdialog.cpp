@@ -6,6 +6,10 @@ aboutdialog::aboutdialog(QWidget *parent) :
     ui(new Ui::aboutdialog)
 {
     ui->setupUi(this);
+
+    QString buildDate = __DATE__;
+    QString buildTime = __TIME__;
+    ui->buildLabel->setText(QString("Built on %1 %2").arg(buildDate).arg(buildTime));
 }
 
 aboutdialog::~aboutdialog()

@@ -52,7 +52,7 @@
     <string>Based on Qt XXXX</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
+  <widget class="QLabel" name="buildLabel">
    <property name="geometry">
     <rect>
      <x>20</x>
