@@ -39,7 +39,7 @@
     <string>Close</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QLabel" name="qtVersionLabel">
    <property name="geometry">
     <rect>
      <x>20</x>
