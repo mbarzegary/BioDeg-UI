@@ -26,16 +26,18 @@ This code has been used in the following publications so far. In scientific work
           pages = {109674},
           year = {2021},
           issn = {0010-938X},
-          doi = {https://doi.org/10.1016/j.corsci.2021.109674},
+          doi = {10.1016/j.corsci.2021.109674},
     }
 
-    @misc{barzegari2020highly,
-          title={Highly scalable numerical simulation of coupled reaction-diffusion systems with moving interfaces},
-          author={Mojtaba Barzegari and Liesbet Geris},
-          year={2020},
-          eprint={2008.11057},
-          archivePrefix={arXiv},
-          primaryClass={cs.CE}
+    @article{barzegari2021hpc,
+          author = {Mojtaba Barzegari and Liesbet Geris},
+          title ={Highly scalable numerical simulation of coupled reaction–diffusion systems with moving interfaces},
+          journal = {The International Journal of High Performance Computing Applications},
+          volume = {0},
+          number = {0},
+          pages = {10943420211045939},
+          year = {0},
+          doi = {10.1177/10943420211045939},
     }
 
 ## Getting started
@@ -100,3 +102,10 @@ You can specify the number of employed cores (which also implies the number of m
 * Ability to switch between full Navier-Stokes and Stokes equation
 * Ability to turn off flow effect and equation (or adjust if it should be solved every N steps)
 * Fieldsplit preconditioners for fluid flow equation
+
+#### Version 0.8 (November 2021)
+* Replacing density and viscosity with dynamic viscosity in fluid equations
+* Rewriting the redistancing code to be compatible with the parallelization scheme
+* Considering the porous characteristic of the film for the fluid equation
+* Fixing the convection behavior on the moving corrosion interface
+* Fixing the MPI buffer issue in Windows
