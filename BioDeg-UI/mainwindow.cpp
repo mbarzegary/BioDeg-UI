@@ -17,7 +17,8 @@
 #include <QtCharts/QLineSeries>
 #include <QDialog>
 
-QT_CHARTS_USE_NAMESPACE
+//QT_CHARTS_USE_NAMESPACE
+QT_USE_NAMESPACE
 
 QProcess *process;
 int totalSteps;
