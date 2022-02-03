@@ -497,6 +497,7 @@ void MainWindow::on_viewResultsButton_clicked()
         QMessageBox qmb;
         qmb.setText("Current simulation is not configured to write graphical output!");
         qmb.exec();
+        return;
     }
 
     QString fileName = currentSimulation.outputDir + "/output_" + QString::number(currentSimulation.mpiSize) + ".pvd";
