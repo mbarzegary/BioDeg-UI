@@ -435,12 +435,18 @@ void MainWindow::on_runButton_clicked()
     if (ui->parallelCheck->isChecked())
         n = ui->mpiSpin->value();
     process = new QProcess(this);
-    QString program = "mpiexec -n " + QString::number(n) + " FreeFem++-mpi ../BioDeg-core/src/main.edp -v 0 " + args;
+    QString cmdOld = "mpiexec -n " + QString::number(n) + " FreeFem++-mpi ../BioDeg-core/src/main.edp -v 0 " + args;
+    QString program = "mpiexec";
+    QStringList arguments;
+    arguments << "-n" << QString::number(n);
+    arguments << "FreeFem++-mpi" << "../BioDeg-core/src/main.edp";
+    arguments << "-v" << "0";
+    arguments << QProcess::splitCommand(args); // requires Qt 5.15 and above
     connect(process, SIGNAL(readyReadStandardOutput()), this, SLOT(readOutput()));
     connect(process, SIGNAL(readyReadStandardError()), this, SLOT(readError()));
     connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
-    displayMessage("Executing: " + program, false);
-    process->start(program);
+    displayMessage("Executing: " + cmdOld, false);
+    process->start(program, arguments);
     ui->runButton->setEnabled(false);
     ui->stopButton->setEnabled(true);
     ui->runButton->setText("Running...");
