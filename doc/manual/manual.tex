@@ -7,6 +7,9 @@
 \usepackage{subcaption}
 \usepackage{textpos}
 \usepackage{setspace}
+\usepackage{menukeys}
+
+\usepackage[group-separator={,}]{siunitx}
 
 
 % use a larger page size; otherwise, it is difficult to have complete
@@ -18,7 +21,7 @@
 % items (if we ever wanted one)
 \usepackage{imakeidx}
 \makeindex[name=prmindex, title=Index of run-time parameter entries]
-\makeindex[name=prmindexfull, title=Index of run-time parameters with section names]
+\makeindex[name=prmindexfull, title={Index of run-time parameters with section names\label{sec:index}}]
 
 % be able to use \note environments with a box around the text
 \usepackage{fancybox}
@@ -70,6 +73,8 @@
 
 
 \newcommand{\biodeg}{\textsc{BioDeg}}
+
+\graphicspath{{figs/}}
 
 \begin{document}
 
@@ -175,7 +180,7 @@ Copyright (c) 2019-2021 University of Leuven and \hyperref[sec:authors]{BioDeg a
 
 \section{Run-time input parameters}
 \label{sec:parameters}
-The underlying description of the input parameters also includes a ``Standard/Advanced'' label, which signifies whether an input parameter is a standard one or an advanced level parameter. The default values of the ``Advanced'' parameters are good enough for almost all cases. However, in some cases user may need to use ``Advanced'' labeled parameters. For user convenience, all input parameters are also indexed at the end of this manual in Section~\ref{sec:runtime-parameter-index-full}.
+The underlying description of the input parameters also includes a ``Standard/Advanced'' label, which signifies whether an input parameter is a standard one or an advanced level parameter. The default values of the ``Advanced'' parameters are good enough for almost all cases. However, in some cases user may need to use ``Advanced'' labeled parameters. For user convenience, all input parameters are also indexed at the end of this manual in Section \hyperref[sec:index]{Index}.
 \input{parameters}
 
 
