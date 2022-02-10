@@ -152,6 +152,6 @@ $ cmake ..
 $ make
 \end{verbatim}
 
-In Windows, you may need to call the correct build system installed along with Qt. For example, by assuming that you have installed the MinGW integration for Qt, the \verb|make| command should be written as \verb|mingw32-make|.
+In Windows, you may need to call the correct build system installed along with Qt. For example, by assuming that you have installed the MinGW integration for Qt, the \verb|make| command should be written as \verb|mingw32-make|. Moreover, in this case, you need to call CMake with a suitable generator, so the \verb|cmake| command should be replaced by something like \verb|cmake -G "MinGW Makefiles"| (don't forget to insert the double dots).
 
 After doing this, you can find the \biodeg{} UI executable in the source directory and run it by executing \verb|./BioDeg| in Linux or \verb|.\BioDeg.exe| in Windows.
