@@ -489,6 +489,13 @@ void MainWindow::on_actionHelp_triggered()
     QDesktopServices::openUrl(url);
 }
 
+void MainWindow::on_actionTheory_guide_triggered()
+{
+    QString file = QFileInfo("../doc/theory_guide/theory_guide.pdf").absoluteFilePath();
+    QUrl url = QUrl::fromLocalFile(file);
+    QDesktopServices::openUrl(url);
+}
+
 void MainWindow::on_actionMeshgenerator_triggered()
 {
     preprocessdialog *preprocessor = new preprocessdialog(this);
@@ -590,3 +597,4 @@ void MainWindow::on_plotLossButton_clicked()
     dialog->resize(400, 300);
     dialog->show();
 }
+

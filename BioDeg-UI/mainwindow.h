@@ -43,6 +43,7 @@ private slots:
     void on_viewResultsButton_clicked();
     void on_plotLossButton_clicked();
     void on_actionHelp_triggered();
+    void on_actionTheory_guide_triggered();
 
 private:
     Ui::MainWindow *ui;
