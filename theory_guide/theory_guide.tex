@@ -1,0 +1,156 @@
+\documentclass{article}
+\usepackage[pdftex]{graphicx,color}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{subcaption}
+\usepackage{textpos}
+\usepackage{setspace}
+
+\usepackage[group-separator={,}]{siunitx}
+
+
+% use a larger page size; otherwise, it is difficult to have complete
+% code listings and output on a single page
+\usepackage{fullpage}
+
+
+% be able to use \note environments with a box around the text
+\usepackage{fancybox}
+\newcommand{\note}[1]{
+{\parindent0pt
+  \begin{center}
+    \shadowbox{
+      \begin{minipage}[c]{0.9\linewidth}
+        \textbf{Note:} #1
+      \end{minipage}
+    }
+  \end{center}
+}}
+
+% use the listings package for code snippets. define keywords for prm files
+% and for gnuplot
+\usepackage{listings}
+\lstset{
+  language=C++,
+  showstringspaces=false,
+  basicstyle=\small\ttfamily,
+  columns=fullflexible,
+  keepspaces=true,
+  frame=single,
+  breaklines=true,
+  postbreak=\raisebox{0ex}[0ex][0ex]{\hspace{5em}\ensuremath{\color{red}\hookrightarrow\space}}
+}
+\lstdefinelanguage{prmfile}{morekeywords={set,subsection,end},
+                            morecomment=[l]{\#},escapeinside={\%\%}{\%},}
+\lstdefinelanguage{gnuplot}{morekeywords={plot,using,title,with,set,replot},
+                            morecomment=[l]{\#},}
+
+
+% use the hyperref package; set the base for relative links to
+% the top-level \dftfe directory so that we can link to
+% files in the \dftfe tree without having to specify the
+% location relative to the directory where the pdf actually
+% resides
+\usepackage[colorlinks,linkcolor=blue,urlcolor=blue,citecolor=blue,baseurl=../]{hyperref}
+
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+            {-2.5ex\@plus -1ex \@minus -.25ex}%
+            {1.25ex \@plus .25ex}%
+            {\normalfont\normalsize\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{4} % how many sectioning levels to assign numbers to
+\setcounter{tocdepth}{4}    % how many sectioning levels to show in ToC
+
+
+\newcommand{\biodeg}{\textsc{BioDeg}}
+
+\graphicspath{{figs/}}
+
+\begin{document}
+
+\definecolor{dark_grey}{gray}{0.3}
+\definecolor{biodeg_blue}{rgb}{0.0,0.39,0.76}
+
+%LINE 1%
+{
+\renewcommand{\familydefault}{\sfdefault}
+
+\pagenumbering{gobble}
+
+%COLOR AND CODENAME BLOCK%
+\begin{center}
+\resizebox{\textwidth}{!}{\colorbox
+{biodeg_blue}{\fontfamily{\rmdefault}\selectfont \textcolor{yellow} {
+\hspace{0.1in}\biodeg{}\hspace{0.1in}
+}}}
+\\[12pt]
+{\Large Biodegradation and Corrosion Simulation using Finite Element}
+\end{center}
+
+%MAIN PICTURE%
+%\begin{textblock*}{0in}(0.5in,0.3in)
+%\begin{center}
+%\vspace{1em}
+%\includegraphics[scale=0.35]{N2.png}
+%\hspace{5em}
+%\end{center}
+%\end{textblock*}
+
+\color{dark_grey}
+\vspace{1.0em}
+\hfill{\Huge \fontfamily{\sfdefault}\selectfont Theory Guide \\
+\raggedleft \huge \fontfamily{\sfdefault}\selectfont Version
+0.8 %VERSION-INFO%
+\\\large(generated \today)\\
+\vspace{1.5em}
+{\Large Mojtaba Barzegari\,\\Liesbet Geris\\}
+\vspace{1.0em}
+\large
+\vspace{1.0em}
+}
+%WEBSITE%
+\null
+\vspace{17em}
+
+{\noindent
+{\fontfamily{\sfdefault}\selectfont \href{https://github.com/mbarzegary/BioDeg-UI}{BioDeg website}}
+}
+
+\begin{textblock*}{0in}(4.8in,-0.5in)
+\includegraphics[height=0.5in]{KUL.png}
+\end{textblock*}
+
+%LINE%
+{\noindent
+\color{dark_grey}
+\rule{\textwidth}{2pt}
+}
+
+}
+Copyright (c) 2019-2021 University of Leuven and \hyperref[sec:authors]{BioDeg authors}.
+\pagebreak
+\pagenumbering{arabic}
+
+\pagebreak
+
+\onehalfspacing
+
+\tableofcontents
+
+\pagebreak
+
+%\section{Introduction}
+%\label{sec:intro}
+%\input{intro}
+%
+%\section{Useful background information}
+%\label{sec:background}
+%\input{background}
+
+
+
+
+\end{document}
