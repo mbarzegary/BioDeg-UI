@@ -434,6 +434,7 @@ void MainWindow::on_runButton_clicked()
     int n = 1;
     if (ui->parallelCheck->isChecked())
         n = ui->mpiSpin->value();
+
     process = new QProcess(this);
     QString cmdOld = "mpiexec -n " + QString::number(n) + " FreeFem++-mpi ../BioDeg-core/src/main.edp -v 0 " + args;
     QString program = "mpiexec";
@@ -442,15 +443,22 @@ void MainWindow::on_runButton_clicked()
     arguments << "FreeFem++-mpi" << "../BioDeg-core/src/main.edp";
     arguments << "-v" << "0";
     arguments << QProcess::splitCommand(args); // requires Qt 5.15 and above
+
+    QString outputFile = ui->outputDirEdit->text() + "/" + ui->outputNameEdit->text() + ".txt";
+    if (QFileInfo::exists(outputFile))
+        QFile::remove(outputFile);
+
     connect(process, SIGNAL(readyReadStandardOutput()), this, SLOT(readOutput()));
     connect(process, SIGNAL(readyReadStandardError()), this, SLOT(readError()));
     connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
     displayMessage("Executing: " + cmdOld, false);
     process->start(program, arguments);
+
     ui->runButton->setEnabled(false);
     ui->stopButton->setEnabled(true);
     ui->runButton->setText("Running...");
     initializeDashboard();
+
     currentSimulation.outputDir = ui->outputDirEdit->text();
     currentSimulation.mpiSize = ui->parallelCheck->isChecked() ? ui->mpiSpin->value() : 1;
     currentSimulation.vtkOutput = ui->writeVTKCheck->isChecked();
