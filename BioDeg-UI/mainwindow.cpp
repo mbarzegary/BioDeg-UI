@@ -472,7 +472,8 @@ void MainWindow::on_actionOutput_toggled(bool value)
 
 void MainWindow::on_outputDock_visibilityChanged(bool visible)
 {
-    ui->actionOutput->setChecked(visible);
+    if (!this->windowState().testFlag(Qt::WindowMinimized)) // if this is not triggered because of minimizing the window
+        ui->actionOutput->setChecked(visible);
 }
 
 void MainWindow::on_actionAbout_ASLI_triggered()
