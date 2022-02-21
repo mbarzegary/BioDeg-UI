@@ -1,9 +1,9 @@
 #include "aboutdialog.h"
 #include "ui_aboutdialog.h"
 
-aboutdialog::aboutdialog(QWidget *parent) :
+AboutDialog::AboutDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::aboutdialog)
+    ui(new Ui::AboutDialog)
 {
     ui->setupUi(this);
 
@@ -17,7 +17,7 @@ aboutdialog::aboutdialog(QWidget *parent) :
     layout()->setSizeConstraint(QLayout::SetFixedSize);
 }
 
-aboutdialog::~aboutdialog()
+AboutDialog::~AboutDialog()
 {
     delete ui;
 }

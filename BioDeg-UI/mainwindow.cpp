@@ -486,7 +486,7 @@ void MainWindow::on_outputDock_visibilityChanged(bool visible)
 
 void MainWindow::on_actionAbout_ASLI_triggered()
 {
-    aboutdialog *about = new aboutdialog(this);
+    AboutDialog *about = new AboutDialog(this);
     about->setWindowFlags(about->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     about->show();
 }
@@ -507,7 +507,7 @@ void MainWindow::on_actionTheory_guide_triggered()
 
 void MainWindow::on_actionMeshgenerator_triggered()
 {
-    preprocessdialog *preprocessor = new preprocessdialog(this);
+    PreprocessDialog *preprocessor = new PreprocessDialog(this);
     preprocessor->setWindowFlags(preprocessor->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     preprocessor->show();
 }
@@ -606,4 +606,3 @@ void MainWindow::on_plotLossButton_clicked()
     dialog->resize(400, 300);
     dialog->show();
 }
-

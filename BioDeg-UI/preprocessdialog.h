@@ -5,16 +5,16 @@
 #include <QProcess>
 
 namespace Ui {
-class preprocessdialog;
+class PreprocessDialog;
 }
 
-class preprocessdialog : public QDialog
+class PreprocessDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit preprocessdialog(QWidget *parent = nullptr);
-    ~preprocessdialog();
+    explicit PreprocessDialog(QWidget *parent = nullptr);
+    ~PreprocessDialog();
 
 private slots:
     void on_meshFileBrowseButton_clicked();
@@ -31,7 +31,7 @@ signals:
     void sendMessage(QString msg, bool isError);
 
 private:
-    Ui::preprocessdialog *ui;
+    Ui::PreprocessDialog *ui;
     QString prepareArguments();
 };
 

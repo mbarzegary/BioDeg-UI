@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>preprocessdialog</class>
- <widget class="QDialog" name="preprocessdialog">
+ <class>PreprocessDialog</class>
+ <widget class="QDialog" name="PreprocessDialog">
   <property name="geometry">
    <rect>
     <x>0</x>

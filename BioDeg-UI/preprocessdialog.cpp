@@ -8,21 +8,21 @@
 
 QProcess *meshProcess;
 
-preprocessdialog::preprocessdialog(QWidget *parent) :
+PreprocessDialog::PreprocessDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::preprocessdialog)
+    ui(new Ui::PreprocessDialog)
 {
     ui->setupUi(this);
 
     connect(this, SIGNAL(sendMessage(QString, bool)), this->parent(), SLOT(displayMessage(QString, bool)));
 }
 
-preprocessdialog::~preprocessdialog()
+PreprocessDialog::~PreprocessDialog()
 {
     delete ui;
 }
 
-QString preprocessdialog::prepareArguments()
+QString PreprocessDialog::prepareArguments()
 {
     QString args;
     QTextStream out(&args);
@@ -65,7 +65,7 @@ QString preprocessdialog::prepareArguments()
     return args;
 }
 
-void preprocessdialog::readOutput()
+void PreprocessDialog::readOutput()
 {
     QString output = meshProcess->readAllStandardOutput();
     QStringList list = output.split("\n");
@@ -76,12 +76,12 @@ void preprocessdialog::readOutput()
         }
 }
 
-void preprocessdialog::readError()
+void PreprocessDialog::readError()
 {
     emit sendMessage(meshProcess->readAllStandardError(), true);
 }
 
-void preprocessdialog::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
+void PreprocessDialog::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     QMessageBox qmb;
     if (exitStatus == QProcess::ExitStatus::NormalExit)
@@ -98,7 +98,7 @@ void preprocessdialog::processFinished(int exitCode, QProcess::ExitStatus exitSt
 }
 
 
-void preprocessdialog::on_meshFileBrowseButton_clicked()
+void PreprocessDialog::on_meshFileBrowseButton_clicked()
 {
     QFileDialog* qfd = new QFileDialog(this, "Select Mesh File", "", "*.mesh");
     QString s = qfd->getOpenFileName(this, "Select Mesh File", "", "*.mesh");
@@ -110,7 +110,7 @@ void preprocessdialog::on_meshFileBrowseButton_clicked()
     ui->meshFileNameEdit->setText(s);
 }
 
-void preprocessdialog::on_outputFileBrowseButton_clicked()
+void PreprocessDialog::on_outputFileBrowseButton_clicked()
 {
     QFileDialog* qfd = new QFileDialog(this, "Choose Output File", "", "*.mesh");
     QString s = qfd->getSaveFileName(this, "Choose Output File", "", "*.mesh");
@@ -122,7 +122,7 @@ void preprocessdialog::on_outputFileBrowseButton_clicked()
     ui->outputFileEdit->setText(s);
 }
 
-void preprocessdialog::on_refineInitMeshCheck_toggled(bool checked)
+void PreprocessDialog::on_refineInitMeshCheck_toggled(bool checked)
 {
     ui->refineErrorSpin->setEnabled(checked);
     ui->refineErrorLabel->setEnabled(checked);
@@ -140,13 +140,13 @@ void preprocessdialog::on_refineInitMeshCheck_toggled(bool checked)
     ui->iterationSpin->setEnabled(checked);
 }
 
-void preprocessdialog::on_parallelCheck_toggled(bool checked)
+void PreprocessDialog::on_parallelCheck_toggled(bool checked)
 {
     ui->parallelLabel->setEnabled(checked);
     ui->mpiSpin->setEnabled(checked);
 }
 
-void preprocessdialog::on_runButton_clicked()
+void PreprocessDialog::on_runButton_clicked()
 {
     QString args = prepareArguments();
     int n = 1;
@@ -164,7 +164,7 @@ void preprocessdialog::on_runButton_clicked()
     ui->runButton->setText("Running...");
 }
 
-void preprocessdialog::on_stopButton_clicked()
+void PreprocessDialog::on_stopButton_clicked()
 {
     if (meshProcess->state() == QProcess::ProcessState::Running)
         meshProcess->kill();
