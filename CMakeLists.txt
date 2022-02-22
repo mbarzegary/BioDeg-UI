@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.14)
 
 project(BioDeg-UI LANGUAGES CXX)
 
@@ -31,3 +31,28 @@ BioDeg-UI/preprocessdialog.ui
 
 target_link_libraries(BioDeg-UI PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(BioDeg-UI PRIVATE Qt${QT_VERSION_MAJOR}::Charts)
+
+# Google Test
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip
+)
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+enable_testing()
+
+add_executable(
+  test_BioDeg
+  tests/test_biodeg.cpp
+)
+
+target_link_libraries(
+  test_BioDeg
+  gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(test_BioDeg)
