@@ -16,17 +16,17 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR}Charts)
 
 add_executable(BioDeg-UI
-main.cpp
-mainwindow.cpp
-mainwindow.h
-mainwindow.ui
-global.h
-aboutdialog.cpp
-aboutdialog.h
-aboutdialog.ui
-preprocessdialog.h
-preprocessdialog.cpp
-preprocessdialog.ui
+BioDeg-UI/main.cpp
+BioDeg-UI/mainwindow.cpp
+BioDeg-UI/mainwindow.h
+BioDeg-UI/mainwindow.ui
+BioDeg-UI/global.h
+BioDeg-UI/aboutdialog.cpp
+BioDeg-UI/aboutdialog.h
+BioDeg-UI/aboutdialog.ui
+BioDeg-UI/preprocessdialog.h
+BioDeg-UI/preprocessdialog.cpp
+BioDeg-UI/preprocessdialog.ui
 )
 
 target_link_libraries(BioDeg-UI PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
