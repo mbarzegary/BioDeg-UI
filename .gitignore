@@ -73,4 +73,7 @@ BioDeg-postprocess/config.txt
 # --------
 *.dll
 *.exe
+*.out
 
+# FreeFEM sol files
+*.sol
