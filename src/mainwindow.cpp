@@ -436,11 +436,11 @@ void MainWindow::on_runButton_clicked()
         n = ui->mpiSpin->value();
 
     process = new QProcess(this);
-    QString cmdOld = "mpiexec -n " + QString::number(n) + " FreeFem++-mpi ../BioDeg-core/src/main.edp -v 0 " + args;
+    QString cmdOld = "mpiexec -n " + QString::number(n) + " FreeFem++-mpi ../core/src/main.edp -v 0 " + args;
     QString program = "mpiexec";
     QStringList arguments;
     arguments << "-n" << QString::number(n);
-    arguments << "FreeFem++-mpi" << "../BioDeg-core/src/main.edp";
+    arguments << "FreeFem++-mpi" << "../core/src/main.edp";
     arguments << "-v" << "0";
     arguments << QProcess::splitCommand(args); // requires Qt 5.15 and above
 
@@ -550,7 +550,7 @@ void MainWindow::on_viewResultsButton_clicked()
             break;
     }
 
-    QFile file("../BioDeg-postprocess/config.txt");
+    QFile file("../postprocess/config.txt");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
 
@@ -563,7 +563,7 @@ void MainWindow::on_viewResultsButton_clicked()
     QString program = "python";
     QStringList args;
     args << "run.py";
-    pythonProcess->setWorkingDirectory("../BioDeg-postprocess/");
+    pythonProcess->setWorkingDirectory("../postprocess/");
     pythonProcess->start(program, args);
 }
 

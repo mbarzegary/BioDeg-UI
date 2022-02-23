@@ -153,7 +153,7 @@ void PreprocessDialog::on_runButton_clicked()
     if (ui->parallelCheck->isChecked())
         n = ui->mpiSpin->value();
     meshProcess = new QProcess(this);
-    QString program = "mpiexec -n " + QString::number(n) + " FreeFem++-mpi ../BioDeg-preprocess/main.edp -v 0 " + args;
+    QString program = "mpiexec -n " + QString::number(n) + " FreeFem++-mpi ../preprocess/main.edp -v 0 " + args;
     connect(meshProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(readOutput()));
     connect(meshProcess, SIGNAL(readyReadStandardError()), this, SLOT(readError()));
     connect(meshProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
