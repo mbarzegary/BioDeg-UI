@@ -13,4 +13,10 @@ namespace
     EXPECT_TRUE(check_ff_parallel_exists(1));
     EXPECT_TRUE(check_ff_parallel_exists(3));
   }
+
+  TEST(BioDeg, Write)
+  {
+    EXPECT_TRUE(check_biodeg_write(2));
+    EXPECT_TRUE(check_biodeg_write(4));
+  }
 }

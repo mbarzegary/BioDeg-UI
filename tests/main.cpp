@@ -10,5 +10,8 @@ int main()
   cout << check_ff_parallel_exists(1) << endl;
   cout << check_ff_parallel_exists(3) << endl;
 
+  cout << check_biodeg_write(2) << endl;
+  cout << check_biodeg_write(4) << endl;
+
   return 0;
 }

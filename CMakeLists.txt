@@ -8,7 +8,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
@@ -47,7 +47,11 @@ enable_testing()
 add_executable(
   test_BioDeg
   tests/test_biodeg.cpp
+  tests/tests.cpp
+  tests/utils.cpp
 )
+
+set_target_properties(test_BioDeg PROPERTIES CXX_STANDARD 17)
 
 target_link_libraries(
   test_BioDeg
