@@ -152,13 +152,22 @@ void PreprocessDialog::on_runButton_clicked()
     int n = 1;
     if (ui->parallelCheck->isChecked())
         n = ui->mpiSpin->value();
+
     meshProcess = new QProcess(this);
-    QString program = "mpiexec -n " + QString::number(n) + " FreeFem++-mpi ../preprocess/main.edp -v 0 " + args;
+    QString cmdOld = "mpiexec -n " + QString::number(n) + " FreeFem++-mpi ../preprocess/main.edp -v 0 " + args;
+    QString program = "mpiexec";
+    QStringList arguments;
+    arguments << "-n" << QString::number(n);
+    arguments << "FreeFem++-mpi" << "../preprocess/main.edp";
+    arguments << "-v" << "0";
+    arguments << QProcess::splitCommand(args); // requires Qt 5.15 and above
+
     connect(meshProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(readOutput()));
     connect(meshProcess, SIGNAL(readyReadStandardError()), this, SLOT(readError()));
     connect(meshProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
-    emit sendMessage("Executing: " + program, false);
-    meshProcess->start(program);
+    emit sendMessage("Executing: " + cmdOld, false);
+    meshProcess->start(program, arguments);
+
     ui->runButton->setEnabled(false);
     ui->stopButton->setEnabled(true);
     ui->runButton->setText("Running...");
