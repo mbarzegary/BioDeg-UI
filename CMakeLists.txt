@@ -58,5 +58,9 @@ target_link_libraries(
   gtest_main
 )
 
+if(NOT MSVC)
+  target_link_libraries(test_BioDeg stdc++fs)
+endif()
+
 include(GoogleTest)
 gtest_discover_tests(test_BioDeg)
