@@ -20,6 +20,7 @@ struct Simulation
     QString outputDir;
     int mpiSize;
     bool vtkOutput;
+    bool running;
 };
 
 #endif // GLOBAL_H

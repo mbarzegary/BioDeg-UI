@@ -5,6 +5,7 @@
 
 #include <QMainWindow>
 #include <QProcess>
+#include <QCloseEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,6 +18,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+protected:
+    void closeEvent (QCloseEvent*);
 
 public slots:
     void displayMessage(QString msg, bool isError);

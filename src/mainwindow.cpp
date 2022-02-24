@@ -16,6 +16,7 @@
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
 #include <QDialog>
+#include <QCloseEvent>
 
 //QT_CHARTS_USE_NAMESPACE
 QT_USE_NAMESPACE
@@ -46,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->outputText->setFontFamily("Consolas");
     #endif
 
+    currentSimulation.running = false;
     displayMessage("Welcome to BioDeg UI, the graphical interface of BioDeg simulation code!", false);
 
 }
@@ -208,6 +210,7 @@ void MainWindow::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
     ui->runButton->setEnabled(true);
     ui->stopButton->setEnabled(false);
     ui->runButton->setText("Run simulation");
+    currentSimulation.running = false;
 }
 
 void MainWindow::displayMessage(QString msg, bool isError)
@@ -462,6 +465,7 @@ void MainWindow::on_runButton_clicked()
     currentSimulation.outputDir = ui->outputDirEdit->text();
     currentSimulation.mpiSize = ui->parallelCheck->isChecked() ? ui->mpiSpin->value() : 1;
     currentSimulation.vtkOutput = ui->writeVTKCheck->isChecked();
+    currentSimulation.running = true;
 }
 
 void MainWindow::on_stopButton_clicked()
@@ -606,3 +610,21 @@ void MainWindow::on_plotLossButton_clicked()
     dialog->resize(400, 300);
     dialog->show();
 }
+
+void MainWindow::closeEvent (QCloseEvent *event)
+{
+    if (currentSimulation.running)
+    {
+        QMessageBox::StandardButton qmp = QMessageBox::warning( this, "BioDeg",
+                                                                    tr("A simulation is running, and closing BioDeg terminates it.\nAre you sure you want to exit?"),
+                                                                    QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+                                                                    QMessageBox::Yes);
+        if (qmp != QMessageBox::Yes)
+            event->ignore();
+        else
+            event->accept();
+    }
+    else
+        event->accept();
+}
+
