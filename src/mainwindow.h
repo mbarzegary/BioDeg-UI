@@ -23,25 +23,25 @@ protected:
     void closeEvent (QCloseEvent*);
 
 public slots:
-    void displayMessage(QString msg, bool isError);
+    void displayMessage(QString, bool);
 
 private slots:
     void readOutput();
     void readError();
-    void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
-    void toggleFullScreen(bool value);
-    void on_importMeshRadio_toggled(bool checked);
-    void on_refineInitMeshCheck_toggled(bool checked);
-    void on_solveFluidCheck_toggled(bool checked);
-    void on_doRedistCheck_toggled(bool checked);
-    void on_exportScaffoldCheck_toggled(bool checked);
+    void processFinished(int, QProcess::ExitStatus);
+    void toggleFullScreen(bool);
+    void on_importMeshRadio_toggled(bool);
+    void on_refineInitMeshCheck_toggled(bool);
+    void on_solveFluidCheck_toggled(bool);
+    void on_doRedistCheck_toggled(bool);
+    void on_exportScaffoldCheck_toggled(bool);
     void on_meshFileBrowseButton_clicked();
     void on_outputDirBrowseButton_clicked();
     void on_runButton_clicked();
     void on_stopButton_clicked();
-    void on_parallelCheck_toggled(bool checked);
-    void on_actionOutput_toggled(bool arg1);
-    void on_outputDock_visibilityChanged(bool visible);
+    void on_parallelCheck_toggled(bool);
+    void on_actionOutput_toggled(bool);
+    void on_outputDock_visibilityChanged(bool);
     void on_actionAbout_ASLI_triggered();
     void on_actionMeshgenerator_triggered();
     void on_viewResultsButton_clicked();

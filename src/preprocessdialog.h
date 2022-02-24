@@ -19,16 +19,16 @@ public:
 private slots:
     void on_meshFileBrowseButton_clicked();
     void on_outputFileBrowseButton_clicked();
-    void on_refineInitMeshCheck_toggled(bool checked);
-    void on_parallelCheck_toggled(bool checked);
+    void on_refineInitMeshCheck_toggled(bool);
+    void on_parallelCheck_toggled(bool);
     void on_runButton_clicked();
     void on_stopButton_clicked();
-    void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
+    void processFinished(int, QProcess::ExitStatus);
     void readOutput();
     void readError();
 
 signals:
-    void sendMessage(QString msg, bool isError);
+    void sendMessage(QString, bool);
 
 private:
     Ui::PreprocessDialog *ui;
