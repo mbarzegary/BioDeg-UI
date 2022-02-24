@@ -15,7 +15,7 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR}Charts)
 
-add_executable(BioDeg-UI
+add_executable(BioDeg-UI WIN32 MACOSX_BUNDLE
 src/main.cpp
 src/mainwindow.cpp
 src/mainwindow.h
