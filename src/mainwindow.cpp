@@ -18,7 +18,9 @@
 #include <QDialog>
 #include <QCloseEvent>
 
-//QT_CHARTS_USE_NAMESPACE
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+QT_CHARTS_USE_NAMESPACE
+#endif
 QT_USE_NAMESPACE
 
 QProcess *process;
@@ -627,4 +629,3 @@ void MainWindow::closeEvent (QCloseEvent *event)
     else
         event->accept();
 }
-
