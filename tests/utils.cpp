@@ -40,3 +40,31 @@ string prepare_args(string mesh_file, int label_scaffold, int label_medium, floa
        + " -solve_fluid 0 -final_time " + to_string(final_time)
        + " -save_last_state 0";
 }
+
+string get_last_line(ifstream& in)
+{
+    string line;
+    while (in >> ws && getline(in, line)); // skip empty lines
+    return line;
+}
+
+string get_last_item(string line)
+{
+    string item;
+    stringstream  data(line);
+    while (getline(data, item, '\t'));
+    return item;
+}
+
+float get_last_mass_loss(string file_name)
+{
+  ifstream file(file_name);
+  if (file)
+  {
+    string last_line = get_last_line(file);
+    string loss = get_last_item(last_line);
+    return stof(loss);
+  }
+  else
+    return 0;
+}
