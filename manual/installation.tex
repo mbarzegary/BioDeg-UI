@@ -1,8 +1,8 @@
-Installing \biodeg{} is a straightforward procedure. You need to install a couple of prerequisites and download and run \biodeg{}; that's all you need to do. But for advanced users, it might be necessary or more interesting to build everything from scratch to have more control on customizing features and improving performance. As a result, we have provided 2 sets of instructions, one for easy installation using the compiled binaries and one for building things from the source codes. The installation instructions are provided for Linux and Windows operating systems, but the procedure should be very similar for macOS. 
+Installing \biodeg{} is a straightforward procedure. You need to install a couple of prerequisites and download and run \biodeg{}; that's all you need to do. But for advanced users, it might be necessary or more interesting to build everything from scratch to have more control over customizing features and improving performance. As a result, we have provided 2 sets of instructions, one for easy installation using the compiled binaries and one for building things from the source codes. The installation instructions are provided for Linux and Windows operating systems, but the procedure should be very similar for macOS. 
 
-It is possible to use \biodeg{} without the user interface (UI) if this scenario is required by the user (like for running it on a super-computer). The core of \biodeg{} is written in FreeFEM, so in this case, all you need to do is to installing/building FreeFEM and the required libraries, and then, cloning the \href{https://github.com/mbarzegary/BioDeg}{\biodeg{} core repository} and running the code according the provided instruction in the README file of the repository.
+It is possible to use \biodeg{} without the user interface (UI) if this scenario is required by the user (like for running it on a super-computer). The core of \biodeg{} is written in FreeFEM, so in this case, all you need to do is to install/build FreeFEM and the required libraries, and then, clone the \href{https://github.com/mbarzegary/BioDeg}{\biodeg{} core repository} and run the code according to the provided instruction in the README file of the repository.
 
-The \biodeg{} UI contains all the bundles for pre-processing and post-processing simulation input/results. These features are being hosted on their own repositories (), but with obtaining the user interface, you can have them all together. If you choose to use \biodeg{} without the user interface and still want to use the provided script for pre/post-processing, you may need to obtain them separately.
+The \biodeg{} UI contains all the bundles for pre-processing and post-processing simulation input/results. These features are being hosted on their own repositories, but with obtaining the user interface, you can have them all together. If you choose to use \biodeg{} without the user interface and still want to use the provided script for pre/post-processing, you may need to obtain them separately.
 
 For building the source codes, we assume standard tools and libraries like CMake, compilers (for C, C++ and Fortran), and MPI libraries are pre-installed on your machine. If you are going to build \biodeg{} and required dependencies on a super-computer or cluster, you should notice that most high-performance computers would have the latest version of these compilers and libraries in the default environment.
 
@@ -12,11 +12,11 @@ The simplest way to install and run \biodeg{} is via the pre-built binaries you 
 
 \begin{enumerate}
 \item
-Download FreeFEM installer for the platform you use and install it. You can find the {.exe} installer for Windows and the {.deb} installer for Linux (Ubuntu) in the \href{https://github.com/FreeFem/FreeFem-sources/releases}{Release page of FreeFEM repository}. You will find these files under the Assets section of the latest (or any other version). Execute the download file and follow the installation procedure appearing on your screen.
+Download FreeFEM installer for the platform you use and install it. You can find the {.exe} installer for Windows and the {.deb} installer for Linux (Ubuntu) in the \href{https://github.com/FreeFem/FreeFem-sources/releases}{Release page of FreeFEM repository}. You will find these files under the Assets section of the latest (or any other) version. Execute the download file and follow the installation procedure appearing on your screen. More information can be found \href{https://doc.freefem.org/introduction/installation.html}{here} for various platforms.
 \item
 Download \biodeg{} tarballs for your preferred platform (Windows or Linux) from the \href{https://github.com/mbarzegary/BioDeg-UI/releases}{Release page of \biodeg{} repository}. This is indeed the \biodeg{} UI bundle that contains the \biodeg{} core, the user interface, the pre-processor, and the post-processor.
 \item
-Extract the downloaded tarball (zip) file and execute \verb|runBioDeg.cmd| in Windows or \verb|runBioDeg.sh| in Linux. By doing this you see \biodeg{} interface showing up on the screen.
+Extract the downloaded tarball (zip) file and execute \verb|runBioDeg.cmd| in Windows or \verb|runBioDeg.sh| in Linux. By doing this, you see the \biodeg{} interface showing up on the screen.
 \end{enumerate}
 
 
@@ -44,7 +44,7 @@ FOPTFLAGS="-O3 -mtune=native" --with-cxx-dialect=C++11 --with-ssl=0 --with-x=0
 
 You may need to build your own version if this configuration is not suitable for you. You can find the instruction for building custom version of PETSc \href{https://petsc.org/release/install/}{here}.
 
-\biodeg{} UI is developed using \href{https://www.qt.io/}{Qt} so it should be installed on your system if you want to compile \biodeg{} UI. You can find the installation instruction for various platforms \href{https://doc.qt.io/qt-5/gettingstarted.html}{here}.
+\biodeg{} UI is developed using \href{https://www.qt.io/}{Qt}, so it should be installed on your system if you want to compile \biodeg{} UI. You can find the installation instruction for various platforms \href{https://doc.qt.io/qt-5/gettingstarted.html}{here}.
 
 \paragraph{FreeFEM}
 
@@ -100,7 +100,7 @@ $ cd -
 $ ./reconfigure
 \end{verbatim}
 
-\item Build the source code of FreeFEM using 4 parallel processes (or nay other number you like
+\item Build the source code of FreeFEM using 4 parallel processes (or any other number you like
 \begin{verbatim}
 $ make -j4
 \end{verbatim}
@@ -131,9 +131,9 @@ and add \verb|export PATH=$PATH:/home/<your_profile>/FreeFEM/freefem-install/bin
 
 \end{enumerate}
 
-After doing this, you should be abale to run FreeFEM. Start a new terminal and run \verb|FreeFem++| and \verb|FreeFem++-mpi|. See ing no error in the output means that you have successfully installed it.
+After doing this, you should be able to run FreeFEM. Start a new terminal and run \verb|FreeFem++| and \verb|FreeFem++-mpi|. See ing no error in the output means that you have successfully installed it.
 
-\subsubsection{Building and installing \biodeg{}}
+\subsubsection{Building and installing \biodeg{}} \label{sec:build_biodeg}
 
 Since \biodeg{} UI is developed using Qt, compiling the source files is quite straightforward. Upon installing Qt on your machine, clone the \href{https://github.com/mbarzegary/BioDeg-UI}{\biodeg{} UI repository} and follow one of the following scenarios to build it. 
 
@@ -143,7 +143,7 @@ This is the simplest technique to build the program, and it has a similar proced
 
 \paragraph{Build \biodeg{} UI using Qt tools}
 
-Building the source files using CMake is also quite simple. Navigate to the source files directory (the cloned repository) and run the following commands (this assumes that you have already added Qt \verb|bin| directory to the `PATH` variable so that the CMake script can find Qt libraries and binaries):
+Building the source files using CMake is also quite simple. Navigate to the source files directory (the cloned repository) and run the following commands (this assumes that you have already added Qt \verb|bin| directory to the \verb|PATH| variable so that the CMake script can find Qt libraries and binaries):
 
 \begin{verbatim}
 $ mkdir build
@@ -152,6 +152,17 @@ $ cmake ..
 $ make
 \end{verbatim}
 
-In Windows, you may need to call the correct build system installed along with Qt. For example, by assuming that you have installed the MinGW integration for Qt, the \verb|make| command should be written as \verb|mingw32-make|. Moreover, in this case, you need to call CMake with a suitable generator, so the \verb|cmake| command should be replaced by something like \verb|cmake -G "MinGW Makefiles"| (don't forget to insert the double dots).
+In Windows, you may need to call the correct build system installed along with Qt. For example, by assuming that you have installed the MinGW integration for Qt, the \verb|make| command should be written as \verb|mingw32-make|. Moreover, in this case, you need to call CMake with a suitable generator, so the \verb|cmake| command should be replaced by something like \verb|cmake -G "MinGW Makefiles" ..| (don't forget to insert the double dots).
 
-After doing this, you can find the \biodeg{} UI executable in the source directory and run it by executing \verb|./BioDeg| in Linux or \verb|.\BioDeg.exe| in Windows.
+After doing this, you can find the \biodeg{} UI executable in the build (or bin) directory and run it by executing \verb|./BioDeg-UI| in Linux or \verb|.\BioDeg-UI.exe| in Windows.
+
+\subsubsection{Testing \biodeg{}}
+
+The testing module of \biodeg{} is developed using \href{https://github.com/google/googletest}{Google Testing framework}. The tests cover some basic and advanced evaluation of the functionality of FreeFEM installation and \biodeg{}-core, so running them may take several minutes to complete. 
+
+After building \biodeg{} using the process mentioned in Section~\ref{sec:build_biodeg}, you can run the tests simply by executing the following command (in the build directory):
+
+\begin{verbatim}
+$ make test
+\end{verbatim}
+which can be \verb|mingw32-make test| in Windows. You can review the results upon completion of all the tests. In a healthy installation of FreeFEM and \biodeg{}, all tests should pass successfully. 

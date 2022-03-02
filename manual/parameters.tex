@@ -12,7 +12,7 @@
 
 {\it Default:} true (1)
 
-{\it Description:} [Standard] Boolean parameter specifying whether an external mesh file is imported or a container box as well as a cubic scaffold would be created on the fly for simulation.
+{\it Description:} [Standard] Boolean parameter specifying whether an external mesh file is imported or a container box, as well as a cubic scaffold, would be created on the fly for simulation.
 
 {\it Possible values:} A boolean value (1 or 0)
 
@@ -39,7 +39,7 @@
 
 {\it Default:} 1
 
-{\it Description:} [Standard] The label of the (volume) region supposed to be scaffold in the input mesh (can be viewed in programs like GMSH before importing into \biodeg{}). 
+{\it Description:} [Standard] The label of the (volume) region which is supposed to be scaffold in the input mesh (can be viewed in programs like GMSH before importing into \biodeg{}). 
 
 {\it Possible values:} Any positive integer value 
 
@@ -53,7 +53,7 @@
 
 {\it Default:} 2 
 
-{\it Description:} [Standard] The label of the (volume) region supposed to be the medium (electrolyte) in the input mesh.
+{\it Description:} [Standard] The label of the (volume) region which is supposed to be the medium (electrolyte) in the input mesh.
 
 {\it Possible values:} Any positive integer value 
 
@@ -67,7 +67,7 @@
 
 {\it Default:} 3
 
-{\it Description:} [Advanced] The label of the surface in the input mesh to be assigned as wall (no slip boundary condition) in the fluid flow simulations.
+{\it Description:} [Advanced] The label of the surface in the input mesh to be assigned as wall (no-slip boundary condition) in the fluid flow simulations.
 
 {\it Possible values:} Any positive integer value 
 
@@ -111,7 +111,7 @@
 
 {\it Description:} [Standard] In case of {\tt import\_mesh} being FALSE, specifies the length of the container box (for the electrolyte) in mm.
 
-{\it Possible values:} Any positive floating point number 
+{\it Possible values:} Any positive floating-point number 
 
 
 \item {\it Parameter name:} {\tt cube\_size\_x}
@@ -125,7 +125,7 @@
 
 {\it Description:} [Standard] In case of {\tt import\_mesh} being FALSE, specifies the length of the scaffold cuboid along the x axis in mm.
 
-{\it Possible values:} Any positive floating point number 
+{\it Possible values:} Any positive floating-point number 
 
 
 \item {\it Parameter name:} {\tt cube\_size\_y}
@@ -139,7 +139,7 @@
 
 {\it Description:} [Standard] In case of {\tt import\_mesh} being FALSE, specifies the length of the scaffold cuboid along the y axis in mm.
 
-{\it Possible values:} Any positive floating point number 
+{\it Possible values:} Any positive floating-point number 
 
 
 \item {\it Parameter name:} {\tt cube\_size\_z}
@@ -154,7 +154,7 @@
 {\it Description:} [Standard] In case of {\tt import\_mesh} being FALSE, specifies the length of the scaffold cuboid along the z axis in mm.
 
 
-{\it Possible values:} Any positive floating point number 
+{\it Possible values:} Any positive floating-point number 
 
 
 \item {\it Parameter name:} {\tt mesh\_size}
@@ -194,9 +194,9 @@
 
 {\it Default:} 0.01
 
-{\it Description:} [Advanced] Since the open source tool {\tt mshmet} is used for creating a metric for refining the mesh on the level set signed distance function, a tolerance should be specified for it. A lower value results to a finer mesh.
+{\it Description:} [Advanced] Since the open-source tool {\tt mshmet} is used for creating a metric for refining the mesh on the level set signed distance function, a tolerance should be specified for it. A lower value results to a finer mesh.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt mesh\_size\_min}
@@ -210,7 +210,7 @@
 
 {\it Description:} [Advanced] Specifies the smallest element size to be passed to the {\tt tetgen} mesh generator for refining the initial mesh.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt mesh\_size\_max}
@@ -224,7 +224,7 @@
 
 {\it Description:} [Advanced] Specifies the largest element size to be passed to the {\tt tetgen} mesh generator for refining the initial mesh.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 \end{itemize}
 
@@ -245,7 +245,7 @@
 
 {\it Description:} [Standard] The density of the metallic material. The default value is the density of magnesium.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt film\_density}
@@ -259,7 +259,7 @@
 
 {\it Description:} [Standard] The density of the protective film that forms on the corrosion surface. The default value is the density of magnesium hydroxide.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt material\_satur}
@@ -273,7 +273,7 @@
 
 {\it Description:} [Advanced] The saturation concentration at which the metallic material (here, the ions) saturates through the medium. The default value is defined for magnesium ions.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt material\_eps}
@@ -287,7 +287,7 @@
 
 {\it Description:} [Advanced] The porosity of the formed protective layer in the range [0, 1].
 
-{\it Possible values:} Any floating point number between 0 and 1
+{\it Possible values:} Any floating-point number between 0 and 1
 
 
 \item {\it Parameter name:} {\tt material\_tau}
@@ -301,7 +301,7 @@
 
 {\it Description:} [Advanced] The tortuosity of the formed protective layer.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt d\_mg}
@@ -329,7 +329,7 @@
 
 {\it Description:} [Standard] The diffusion coefficient of the chloride ions transport
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt d\_oh}
@@ -343,7 +343,7 @@
 
 {\it Description:} [Standard] The diffusion coefficient of the hydroxide ions transport
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt k1}
@@ -357,7 +357,7 @@
 
 {\it Description:} [Standard] The reaction rate at which the chemical reaction of the protective film formation occurs.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt k2}
@@ -371,7 +371,7 @@
 
 {\it Description:} [Standard] The reaction rate at which the chemical reaction of the protective film dissolution occurs.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt fluid\_nu}
@@ -383,9 +383,9 @@
 
 {\it Default:} 0.85
 
-{\it Description:} [Advanced] The effective viscosity of the fluid used to simulate hydrodynamics condition.
+{\it Description:} [Advanced] The effective viscosity of the fluid used to simulate hydrodynamics conditions.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt fluid\_in\_x}
@@ -397,9 +397,9 @@
 
 {\it Default:} 0.1
 
-{\it Description:} [Advanced] The X component of the fluid velocity defined on inlet (see {\tt label\_inlet}) as the boundary condition for the fluid flow.
+{\it Description:} [Advanced] The X component of the fluid velocity defined on the inlet (see {\tt label\_inlet}) as the boundary condition for the fluid flow.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt fluid\_in\_y}
@@ -411,9 +411,9 @@
 
 {\it Default:} 0
 
-{\it Description:} [Advanced] The Y component of the fluid velocity defined on inlet (see {\tt label\_inlet}) as the boundary condition for the fluid flow.
+{\it Description:} [Advanced] The Y component of the fluid velocity defined on the inlet (see {\tt label\_inlet}) as the boundary condition for the fluid flow.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt fluid\_in\_z}
@@ -425,9 +425,9 @@
 
 {\it Default:} 0
 
-{\it Description:} [Advanced] The Z component of the fluid velocity defined on inlet (see {\tt label\_inlet}) as the boundary condition for the fluid flow.
+{\it Description:} [Advanced] The Z component of the fluid velocity defined on the inlet (see {\tt label\_inlet}) as the boundary condition for the fluid flow.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt initial\_cl}
@@ -441,7 +441,7 @@
 
 {\it Description:} [Standard] Initial concentration of chloride ions in the medium.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt initial\_oh}
@@ -455,7 +455,7 @@
 
 {\it Description:} [Standard] Initial concentration of hydroxide ions in the medium, used for computing pH. The default value indicates a pH of 7.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \end{itemize}
@@ -531,7 +531,7 @@
 
 {\it Default:} true (1)
 
-{\it Description:} [Standard] Boolean parameter indicating whether the level set surface tracking equation should be solved or not. Surface tracking is essential for computing the mass loss.
+{\it Description:} [Standard] Boolean parameter indicating whether the level set surface tracking equation should be solved or not. Surface tracking is essential for computing mass loss.
 
 {\it Possible values:} Any boolean value (1 or 0)
 
@@ -573,7 +573,7 @@
 
 {\it Default:} true (1)
 
-{\it Description:} [Advanced] Boolean parameter specifying whether the fluid flow quantities (velocity field components and pressure) should be saved in the output VTK file or not. Requires {\tt write\_vtk} be TRUE.
+{\it Description:} [Advanced] Boolean parameter specifying whether the fluid flow quantities (velocity field components and pressure) should be saved in the output VTK file or not. Requires {\tt write\_vtk} to be TRUE.
 
 {\it Possible values:} Any boolean value (1 or 0)
 
@@ -601,9 +601,9 @@
 
 {\it Default:} 0.025
 
-{\it Description:} [Advanced] The time step value of the the simulations.
+{\it Description:} [Advanced] The time step value of the simulations.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt final\_time}
@@ -617,7 +617,7 @@
 
 {\it Description:} [Standard] The final simulation time, meaning the duration of interest for the biodegradation model.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt do\_redistance}
@@ -643,9 +643,9 @@
 
 {\it Default:} 1.0
 
-{\it Description:} [Advanced] In case {\tt do\_redistance} being true, this parameter indicates the interval between each level set function re-initialization.
+{\it Description:} [Advanced] In case {\tt do\_redistance} is true, this parameter indicates the interval between each level set function re-initialization.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 \end{itemize}
 
@@ -663,7 +663,7 @@
 
 {\it Default:} "output/result.txt"
 
-{\it Description:} [Standard] Path to the text file in which text output, like the mass loss and evolved hydrogen production, are written over time. The path can be relative or absolute.
+{\it Description:} [Standard] Path to the text file in which text output, like the mass loss and evolved hydrogen production, is written over time. The path can be relative or absolute.
 
 {\it Possible values:} Any string value referring to a valid path
 
@@ -691,7 +691,7 @@
 
 {\it Default:} "output/output"
 
-{\it Description:} [Standard] The naming scheme for the VTK output. This is mainly for the PVD file, and the final name of the rest of the files will be determined by the number of employed MPI computing nodes and the time step. The number of VTU files saved per time step equals to the number of employed MPI nodes.
+{\it Description:} [Standard] The naming scheme for the VTK output. This is mainly for the PVD file, and the final name of the rest of the files will be determined by the number of employed MPI computing nodes and the time step. The number of VTU files saved per time step equals the number of employed MPI nodes.
 
 {\it Possible values:} Any string value referring to a valid path
 
@@ -707,7 +707,7 @@
 
 {\it Description:} [Standard] The interval of saving results, text and VTK (if selected), to disk. 
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt save\_last\_state}
@@ -719,7 +719,7 @@
 
 {\it Default:} true (1)
 
-{\it Description:} [Standard] Indicates whether the last state of the system should be saved or not. The last state will be always saved on a global (non-partitioned) mesh, meaning that it will be a single VTU file, in contrast to normal save in which the number of written files equals to the number of computing nodes.
+{\it Description:} [Standard] Indicates whether the last state of the system should be saved or not. The last state will be always saved on a global (non-partitioned) mesh, meaning that it will be a single VTU file, in contrast to a normal save in which the number of written files equals to the number of computing nodes.
 
 {\it Possible values:} Any boolean value (1 or 0)
 
@@ -733,7 +733,7 @@
 
 {\it Default:} false (0)
 
-{\it Description:} [Advanced] Indicated whether the side hydrogen evolution results should be computed per unit area of exposed surface.
+{\it Description:} [Advanced] Indicated whether the side hydrogen evolution results should be computed per unit area of the exposed surface.
 
 {\it Possible values:} Any boolean value (1 or 0)
 
@@ -747,9 +747,9 @@
 
 {\it Default:} 1.0
 
-{\it Description:} [Advanced] In case of symmetrical conditions, this parameter can be used to multiply the obtained quantitative results to have easier comparison with experimental results. A value of 1.0 indicates no multiplication.
+{\it Description:} [Advanced] In the case of symmetrical conditions, this parameter can be used to multiply the obtained quantitative results to have an easier comparison with experimental results. A value of 1.0 indicates no multiplication.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt export\_scaffold}
@@ -775,9 +775,9 @@
 
 {\it Default:} 1.0
 
-{\it Description:} [Advanced] In case {\tt export\_scaffold} being true, this parameter determines the interval of saving the material mesh to the disk.
+{\it Description:} [Advanced] In case {\tt export\_scaffold} is true, this parameter determines the interval of saving the material mesh to the disk.
 
-{\it Possible values:} Any floating point number
+{\it Possible values:} Any floating-point number
 
 
 \item {\it Parameter name:} {\tt export\_scaffold\_volume}
@@ -789,7 +789,7 @@
 
 {\it Default:} true (1)
 
-{\it Description:} [Advanced] In case {\tt export\_scaffold} being true, this parameter indicates whether a volume mesh should be saved as output or not.
+{\it Description:} [Advanced] In case {\tt export\_scaffold} is true, this parameter indicates whether a volume mesh should be saved as output or not.
 
 {\it Possible values:} Any boolean value (1 or 0)
 
@@ -803,7 +803,7 @@
 
 {\it Default:} true (1)
 
-{\it Description:} [Advanced] In case {\tt export\_scaffold} being true, this parameter indicates whether a surface mesh should be saved as output or not.
+{\it Description:} [Advanced] In case {\tt export\_scaffold} is true, this parameter indicates whether a surface mesh should be saved as output or not.
 
 {\it Possible values:} Any boolean value (1 or 0)
 

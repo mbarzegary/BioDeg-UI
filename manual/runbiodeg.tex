@@ -1,10 +1,10 @@
-After installing/compiling \biodeg{} as described in Section~\ref{sec:installation}, we are ready to run it. There are 2 ways to run \biodeg{} simulations: 1) using the UI to configure and execute \biodeg{}, or 2) running \biodeg{} directly from command line and provide simulation parameters via command line arguments. Moreover, in a hybrid approach, the UI can be used to configure and generate the command for method \#2, which can be useful in which you want to configure the simulation only and run it later in another environment like on a super-computer or cluster.
+After installing/compiling \biodeg{} as described in Section~\ref{sec:installation}, we are ready to run it. There are 2 ways to run \biodeg{} simulations: 1) using the UI to configure and execute \biodeg{}, or 2) running \biodeg{} directly from the command line and providing simulation parameters via command-line arguments. Moreover, in a hybrid approach, the UI can be used to configure and generate the command for method \#2, which can be useful when you want to configure the simulation only and run it later in another environment like on a super-computer or cluster.
 
-The UI can be run simply by double clicking on the \verb|BioDeg-UI.exe| in Windows or by executing \verb|./BioDeg-UI| in Linux. For running \biodeg{} directly, one need to execute the following command:
+The UI can be run simply by double-clicking on the \verb|BioDeg-UI.exe| in Windows or by executing \verb|./BioDeg-UI| in Linux. For running \biodeg{} directly, one need to execute the following command:
 \begin{verbatim}
-$ mpirun -n N FreeFem++-mpi BioDeg-core/src/main.edp <command line args>
+$ mpirun -n N FreeFem++-mpi core/src/main.edp <command line args>
 \end{verbatim}
-in which N defines the number of MPI processes to be used. The full list of command line arguments can be found in Section \hyperref[sec:index]{Index}.
+in which N defines the number of MPI processes to be used. The full list of command-line arguments can be found in Section \hyperref[sec:index]{Index}.
 
 In order to clarify and demonstrate the procedure of performing simulations using \biodeg{}, 2 step-by-step examples are provided in Section~\ref{sec:config}, showing how to configure and run simulations with and without the UI. Moreover, a third example shows how to combine these approaches and use the UI to generate the execution command. The mesh files needed to run these examples can be found in the \verb|demo| directory. Additionally, Section~\ref{sec:postprocess} provides some guidelines on the postprocessing of the  \biodeg{} simulation results. 
 
@@ -32,9 +32,9 @@ Although you can start the simulation of this example right now, there is a coup
 \item
 In \biodeg{}, simulations are by default carried out in parallel using domain decomposition, meaning that the simulation is distributed among available computing nodes. If you are running \biodeg{} on your local machine, you may need to adjust the parallel computing settings. Navigate to \menu[,]{Solver, Parallel computing, Enable parallel computing} and disable it if you don't want to parallelize the simulation. If you want to continue with parallelization enabled (default behavior), you may need to adjust the number of parallel processes to match the number of free CPU cores you have on your machine. You can change it in \menu[,]{Solver, Parallel computing, CPU/MPI cores}. 
 \item
-The default degradation rate is quite fast, so you may want to decrease it by reducing the diffusion coefficient of the metallic ions (please refer to ``Theory Guide'' if you want to know more about diffusion controls the rate of degradation). The default diffusion rate is the value we have estimated for saline solutions, which leads to a high rate of corrosion. You can apply this it by changing the value in \menu[,]{Material \& BCs, Reaction-diffusion properties, Metal ion diffusion coefficient} and reduce it to something like $0.0005$, which is its order when it comes to buffered solutions and simulated body fluids.
+The default degradation rate is quite fast, so you may want to decrease it by reducing the diffusion coefficient of the metallic ions (please refer to ``Theory Guide'' if you want to know more about diffusion controls the rate of degradation). The default diffusion rate is the value we have estimated for saline solutions, which leads to a high rate of corrosion. You can apply this by changing the value in \menu[,]{Material \& BCs, Reaction-diffusion properties, Metal ion diffusion coefficient} and reduce it to something like $0.0005$, which is its order when it comes to buffered solutions and simulated body fluids.
 \item
-The results write interval, implying how frequently you want to store the results, affects the resource consumption (which is storage in this case) and the quality of the graphical postprocessing. So, you should configure this carefully to keep the balance of the quality and resource consumption. The default save interval is $0.25$ hours of simulation time, but you can change it in \menu[,]{Output, Output options, Save results every ... hours}. For this simulation, since the screw geometry is small and degrades very fast, you can reduce this to $0.1$ to be able to see the degradation steps better.
+The results write interval, implying how frequently you want to store the results, affects the resource consumption (which is the storage in this case) and the quality of the graphical postprocessing. So, you should configure this carefully to keep the balance of quality and resource consumption. The default save interval is $0.25$ hours of simulation time, but you can change it in \menu[,]{Output, Output options, Save results every ... hours}. For this simulation, since the screw geometry is small and degrades very fast, you can reduce this to $0.1$ to be able to see the degradation steps better.
 \item
 Final simulation time does not affect the simulation progress, but it is always a good practice to adjust it, enabling us to track the progress of the simulation better and avoid wasting resources (both computing power and storage). The default simulation time is 21 hours, but you can reduce it in \menu[,]{Solver, Time control, Final simulation time (hour)}. For this simulation, you can reduce it to 2.
 \end{itemize}
@@ -46,7 +46,7 @@ After running the simulation (by pressing the \menu[,]{Run simulation} button), 
 \caption{\biodeg{}-UI running the screw degradation example.} \label{fig:screw_gui}
 \end{figure}
 
-Running this simulation leads to the results demonstrated in Fig.~\ref{fig:screw_degradation}, showing how the screw degrades. For more information on how to postprocess the results, please refer to the postporcessing section.
+Running this simulation leads to the results demonstrated in Fig.~\ref{fig:screw_degradation}, showing how the screw degrades. For more information on how to postprocess the results, please refer to the postprocessing section.
 
 \begin{figure}[h]
 \center \includegraphics[width=15cm]{screw_degradation}
@@ -62,7 +62,7 @@ The model in this example has a helical shape, which is actually the logo of the
 
 The main file of the \biodeg{} code is called \verb|main.edp|, and since it's a parallel code, we should run it with the \verb|mpiexec| command. So, calling the code with all the default parameters on 6 MPI cores can be done like this:
 \begin{verbatim}
-$ mpiexec -n 6 FreeFem++-mpi BioDeg-core/src/main.edp -v 0
+$ mpiexec -n 6 FreeFem++-mpi core/src/main.edp -v 0
 \end{verbatim}
 
 The \verb|-v 0| is added to suppress the messages that FreeFEM writes to the terminal, and it's recommended to include it on any call you make to \biodeg{}. Calling \biodeg{} like this does nothing for us, so let's complete the command by adding more configuration to it (remember that boolean values are passed by their integer equivalents, 0 for false and 1 for true):
@@ -82,11 +82,11 @@ You can lower the degradation rate a little bit if you like. You may run the sim
 
 Adding all the above arguments forms the final execution command to run:
 \begin{verbatim}
-$ mpiexec -n 6 FreeFem++-mpi BioDeg-core/src/main.edp -v 0 -solve_fluid 0 -import_mesh 1 
+$ mpiexec -n 6 FreeFem++-mpi core/src/main.edp -v 0 -solve_fluid 0 -import_mesh 1 
 -mesh_file "demo/biomech_logo.mesh" -label_scaffold 3 -label_medium 4 -d_mg 0.005
 \end{verbatim}
 
-The above command execute \biodeg{}, which writes its output to the terminal (Fig~\ref{fig:logo_terminal}) and stores the simulation results to the default directory called \verb|output| (make sure it exists before calling \biodeg{}). 
+The above command executes \biodeg{}, which writes its output to the terminal (Fig~\ref{fig:logo_terminal}) and stores the simulation results to the default directory called \verb|output| (make sure it exists before calling \biodeg{}). 
 
 \begin{figure}[h]
 \center \includegraphics[width=10cm]{logo_terminal}
@@ -102,7 +102,7 @@ The output of this simulation is shown in Fig~\ref{fig:logo_degradation}, which 
 
 \subsubsection{Example 3 - biodegradation of a cuboid}\label{sec:example3}
 
-The aim of this example is to show how one can combine the approaches taken in the last two examples and use the UI to generate the execution command so that it can be used to run the model in another environment from command line. The idea is simple: \biodeg{}-UI writes the run command and the output of the core model in the ``Output'' panel, so we can have the execution command if we setup the simulation, run it, stop it immediately, and have a look at the ``Output'' panel.
+The aim of this example is to show how one can combine the approaches taken in the last two examples and use the UI to generate the execution command so that it can be used to run the model in another environment from the command line. The idea is simple: \biodeg{}-UI writes the run command and the output of the core model in the ``Output'' panel, so we can have the execution command if we setup the simulation, run it, stop it immediately, and have a look at the ``Output'' panel.
 
 For demonstrating this, we simulate the degradation of a cuboid inside a cubic container. The mesh file is called \verb|cuboid.mesh|, which has $\num{830808}$ elements. The mesh labels for scaffold and medium are the same as the default values on the \biodeg{}-UI (1 for scaffold and 2 for medium), so we don't need to change them. The setup will be straightforward since we just need to adjust the input and output, but the UI will generate a command with a full list of arguments, making it easy to modify it later if required.
 
@@ -110,10 +110,10 @@ Start the UI,
 make sure \menu[,]{Geometry \& Mesh, Import external mesh} is checked, click the browse button in front of the ``File'' box (\menu[,]{Geometry \& Mesh, Import mesh, File}), navigate to the \verb|demo| directory, and select the \verb|cuboid.mesh| file. Since we don't want to change anything else, go directory to the output settings, mark
  \menu[,]{Output, Output options, Write VTK output} (since we want to have graphical output for postprocessing), and specify the output directory by clicking on the browse button in front of the ``Output directory'' (\menu[,]{Output, Output options, Output directory}) and select a directory of desire. 
  
-As the setup is over, we are ready to run the simulation. Click the \menu[,]{Run simulation} button, wait a moment for the command to appear in the ``Output'' panel (written  like \verb|Executing: <command>|) and then click \menu[,]{Stop simulation}. You can now copy the command from the ``Output'' panel by selecting it, right clicking on it, and choosing \verb|Copy|. For this sample case, the command looks like this:
+As the setup is over, we are ready to run the simulation. Click the \menu[,]{Run simulation} button, wait a moment for the command to appear in the ``Output'' panel (written  like \verb|Executing: <command>|), and then click \menu[,]{Stop simulation}. You can now copy the command from the ``Output'' panel by selecting it, right-clicking on it, and choosing \verb|Copy|. For this sample case, the command looks like this:
 
 \begin{verbatim}
-$ mpiexec -n 3 FreeFem++-mpi BioDeg-core/src/main.edp -v 0 -import_mesh 1 
+$ mpiexec -n 3 FreeFem++-mpi core/src/main.edp -v 0 -import_mesh 1 
 -mesh_file "/home/mojtaba/BioDeg/demo/cuboid.mesh" -label_scaffold 1 -label_medium 2 
 -refine_initial_mesh 0  -material_density 0.001735 -film_density 0.002344 
 -material_satur 0.000134 -material_eps 0.55 -material_tau 1 -k1 7 -k2 1e+10 -d_mg 0.05 
@@ -141,14 +141,14 @@ The details of the postprocessing steps of \biodeg{} results are discussed in th
 \url{https://www.youtube.com/watch?v=Sz-eBML2pxs&ab_channel=TuxRiders}
 \end{itemize}
 
-The following videos gives you an idea on how to plot the values of different variables over a line and how to do some quantitative analysis on the results:
+The following video gives you an idea of how to plot the values of different variables over a line and how to do some quantitative analysis on the results:
 
 \begin{itemize}
 \item 
 \url{https://www.youtube.com/watch?v=tGi-jk2UE2U&ab_channel=TuxRiders}
 \end{itemize}
 
-For visualizing the fluid flow, more advanced techniques should be used. The following videos demonstrates how to visualize the fluid field around a degrading object simulated by \biodeg{}:
+For visualizing the fluid flow, more advanced techniques should be used. The following videos demonstrate how to visualize the fluid field around a degrading object simulated by \biodeg{}:
 
 \begin{itemize}
 \item
