@@ -8,7 +8,7 @@ int run_command(string command)
 
 int run_ff(string args, int mpisize)
 {
-  string command = "mpiexec -n " + to_string(mpisize) + " FreeFem++-mpi -v 0 " + args;
+  string command = "mpiexec -n " + to_string(mpisize) + " FreeFem++-mpi -v 0 -nw " + args;
   return run_command(command);
 }
 
