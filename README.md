@@ -8,12 +8,17 @@
 
 This repository contains the source code of BioDeg-UI, the user interface of BioDeg code for simulating the biodegradation and corrosion behavior of metallic materials. The BioDeg code (the computational core) is being maintained/developed in [this repository](https://github.com/mbarzegary/BioDeg).
 
-BioDeg is an open-source software written in FreeFEM (a domain-specific language for finite element programming), C++, and Python for modeling the degradation of metallic biomaterials and simulating the biodegradation behavior of medical devices, implants, and scaffolds in corrosion experiments. It can handle any geometry of desire and supports parallel computing to simulate large-scale models. The BioDeg UI contains all the bundles for pre-processing and post-processing simulation input/results.
+BioDeg is an open-source software written in FreeFEM (a domain-specific language for finite element programming), C++, and Python for modeling the degradation of metallic biomaterials and simulating the biodegradation behavior of medical devices, implants, and scaffolds in corrosion experiments. It can handle any geometry of desire and supports parallel computing to simulate large-scale models.
 
-<img src="core/doc/screw_degradation.jpg" width="600" height="auto">
+<img src="assets/screw_degradation.png" width="600" height="auto">
 <p>
 <br>
-<img src="doc/manual/figs/logo_degradation.jpg" width="600" height="auto">
+<img src="assets/logo_degradation.jpg" width="600" height="auto">
+<p>
+
+The user interface, containing all the bundles for pre-processing and configuring simulations, is implemented using C++ and Qt toolkit. A front-end using Qt and a back-end in FreeFEM enable BioDeg to be cross-platform and be able to run on major operating systems including Linux, Windows, and macOS. The postprocessing of the results is carried out by the open source software ParaView, which is also a cross-platform postprocessor.
+
+<img src="assets/ui.png" width="700" height="auto">
 <p>
 
 ## Installation
