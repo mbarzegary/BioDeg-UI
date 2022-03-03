@@ -24,7 +24,7 @@ bool check_biodeg_write(int mpisize)
 
   mkdir(dir_name);
 
-  string args = prepare_args("../demo/screw.mesh", 2, 1, 0.025, dir_name, output_name, 1, vtk_name);
+  string args = prepare_args("../demo/evaluation.mesh", 1, 2, 0.025, dir_name, output_name, 1, vtk_name);
   run_ff(args, mpisize);
 
   bool result = file_exists(dir_name + "/" + output_name)
@@ -43,12 +43,12 @@ bool check_biodeg_diffusion(int mpisize)
 
   mkdir(dir_name);
 
-  string args = prepare_args("../demo/screw.mesh", 2, 1, 0.1, dir_name, output_name_1, 0, "dummy");
-  args = args + " -d_mg 0.05 -save_each 0.1";
+  string args = prepare_args("../demo/evaluation.mesh", 1, 2, 0.1, dir_name, output_name_1, 0, "dummy");
+  args = args + " -d_mg 0.05 -save_each 0.1 -solve_cl 0 -solve_oh 0";
   run_ff(args, mpisize);
 
-  args = prepare_args("../demo/screw.mesh", 2, 1, 0.1, dir_name, output_name_2, 0, "dummy");
-  args = args + " -d_mg 0.005 -save_each 0.1";
+  args = prepare_args("../demo/evaluation.mesh", 1, 2, 0.1, dir_name, output_name_2, 0, "dummy");
+  args = args + " -d_mg 0.005 -save_each 0.1 -solve_cl 0 -solve_oh 0";
   run_ff(args, mpisize);
 
   bool result = true;

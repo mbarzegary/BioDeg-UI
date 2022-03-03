@@ -14,7 +14,7 @@ int main()
   cout << check_biodeg_write(4) << endl;
 
   cout << check_biodeg_diffusion(2) << endl;
-  cout << check_biodeg_diffusion(4) << endl;
+  // cout << check_biodeg_diffusion(4) << endl;
 
   return 0;
 }
