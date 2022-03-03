@@ -1,0 +1,9 @@
+os: linux
+dist: focal
+language: shell
+services:
+- docker
+before_install:
+- docker pull mbarzegary/qt-5.15.2-freefem-4.10
+script:
+- docker run -it -v "$PWD":/data mbarzegary/qt-5.15.2-freefem-4.10 /data/buildWithDocker.sh
