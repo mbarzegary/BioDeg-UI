@@ -1,5 +1,9 @@
 # BioDeg, biodegradation and corrosion simulation code
 
+[![Build Status](https://app.travis-ci.com/mbarzegary/BioDeg-UI.svg?branch=main)](https://app.travis-ci.com/mbarzegary/BioDeg-UI)
+[![license: GPL v3](https://img.shields.io/badge/license-GPLv3-blue.svg)](LICENSE)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
+
 ## About
 
 This repository contains the source code of BioDeg-UI, the user interface of BioDeg code for simulating the biodegradation and corrosion behavior of metallic materials. The BioDeg code (the computational core) is being maintained/developed in [this repository](https://github.com/mbarzegary/BioDeg).
