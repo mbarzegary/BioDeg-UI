@@ -31,7 +31,7 @@ The simplest way to install and run BioDeg is via the pre-built binaries you can
 
 1. Download FreeFEM installer for the platform you use and install it. You can find the {.exe} installer for Windows and the {.deb} installer for Linux (Ubuntu) in the [Release page of FreeFEM repository](https://github.com/FreeFem/FreeFem-sources/releases). You will find these files under the Assets section of the latest (or any other) version. Execute the download file and follow the installation procedure appearing on your screen.
 2. Download BioDeg tarballs for your preferred platform (Windows or Linux) from the [Release page of this repository](https://github.com/mbarzegary/BioDeg-UI/releases). This is indeed the BioDeg UI bundle that contains the BioDeg core, the user interface, the pre-processor, and the post-processor.
-3. Extract the downloaded tarball (zip) file and execute \verb|runBioDeg.cmd| in Windows or \verb|runBioDeg.sh| in Linux. By doing this, you see the BioDeg interface showing up on the screen.
+3. Extract the downloaded tarball (zip) file and execute `runBioDeg.cmd` in Windows or `runBioDeg.sh` in Linux. By doing this, you see the BioDeg interface showing up on the screen.
 
 ### Advanced installation (building the source code)
 
