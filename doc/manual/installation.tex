@@ -12,6 +12,8 @@ The simplest way to install and run \biodeg{} is via the pre-built binaries you 
 
 \begin{enumerate}
 \item
+Install an MPI implementation on your system, which has different installation instructions depending on the operating system and the implementation you choose to use. In Windows, the simplest option is the open-source Microsoft MPI, which can be downloaded and installed from its \href{https://www.microsoft.com/en-us/download/details.aspx?id=100593}{official website}. In Linux, the best options are OpenMPI and MPICH, which can be installed by executing \verb|sudo apt-get install openmpi-bin| or \verb|sudo apt-get install mpich| in terminal (in Ubuntu).
+\item
 Download FreeFEM installer for the platform you use and install it. You can find the {.exe} installer for Windows and the {.deb} installer for Linux (Ubuntu) in the \href{https://github.com/FreeFem/FreeFem-sources/releases}{Release page of FreeFEM repository}. You will find these files under the Assets section of the latest (or any other) version. Execute the download file and follow the installation procedure appearing on your screen. More information can be found \href{https://doc.freefem.org/introduction/installation.html}{here} for various platforms.
 \item
 Download \biodeg{} tarballs for your preferred platform (Windows or Linux) from the \href{https://github.com/mbarzegary/BioDeg-UI/releases}{Release page of \biodeg{} repository}. This is indeed the \biodeg{} UI bundle that contains the \biodeg{} core, the user interface, the pre-processor, and the post-processor.
