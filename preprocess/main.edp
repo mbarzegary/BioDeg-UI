@@ -1,64 +1,96 @@
 load "msh3"
 load "medit"
 load "distance"
-load "iovtk"
-load "parmmg"
 load "mmg"
+load "parmmg"
 load "mshmet"
 load "tetgen"
+load "iovtk"
 include "getARGV.idp"
 
 include "parameters.idp"
+include "functions.idp"
 
 real sizeX; //= 16 + 10;
 real sizeY; //= 16 + 10;
 real sizeZ; //= 25 + 10;
-real centerX; //= sizeX/2;
-real centerY; //= sizeY/2;
-real centerZ; //= sizeZ/2;
+real shiftX; //= sizeX/2;
+real shiftY; //= sizeY/2;
+real shiftZ; //= sizeZ/2;
+real xMin, xMax, yMin, yMax, zMin, zMax;
 
 mesh3 Mesh;
 mesh3 MeshScaffold;
 
-MeshScaffold = readmesh3(meshFileName);
-include "dimension.idp"
+// importSolution = false : normal mode, read the input mesh and embed it
+// importSolution = true : import mode, using an already calculated soltuion on a mesh
 
-if (mpirank == 0)
+if (!importSolution)
 {
-  cout << "Generating mesh..." << endl;
-  Mesh = cube(2, 2, 2, [sizeX*x-centerX, sizeY*y-centerY, sizeZ*z-centerZ]);
-  real[int] domain = [0, 0, 0, 0, 1];
-  Mesh = tetgreconstruction(Mesh, switch="raAQ", regionlist=domain,
-                          sizeofvolume=(sizeX/meshSize)*(sizeY/meshSize)*(sizeZ/meshSize)/6);
+  if (mpirank == 0)
+    print("Reading input mesh...");
+
+  MeshScaffold = readmesh3(meshFileName);
+  include "dimension.idp"
+
+  if (mpirank == 0)
+  {
+    print("Generating mesh...");
+    Mesh = cube(2, 2, 2, [sizeX*x-shiftX, sizeY*y-shiftY, sizeZ*z-shiftZ]);
+    real[int] domain = [0, 0, 0, 0, 1];
+    Mesh = tetgreconstruction(Mesh, switch="raAQ", regionlist=domain,
+                            sizeofvolume=(sizeX/meshSize)*(sizeY/meshSize)*(sizeZ/meshSize)/6);
+  }
+  broadcast(processor(0), Mesh);
 }
-broadcast(processor(0), Mesh);
+else
+{
+  Mesh = readmesh3(outputFileName);
+  outputFileName = outputFileName + ".mesh";
+}
 
 fespace SpaceP1(Mesh, P1);
 SpaceP1 phi = 0;
 
-SpaceP1 X = x;
-SpaceP1 Y = y;
-SpaceP1 Z = z;
-
-if (mpirank == 0)
+if (!importSolution)
 {
-  cout << "Processing nodes..." << endl;
-  for (int i = 0; i < SpaceP1.ndof; i++)
-  {
-    if (chi(MeshScaffold)(X[][i], Y[][i], Z[][i]) == 1)
-      phi[][i] = 1;
-    cout << "\rProcessed: " << i << " / " << SpaceP1.ndof;
-  }
-  cout << endl;
-}
-broadcast(processor(0), phi[]);
+  SpaceP1 X = x;
+  SpaceP1 Y = y;
+  SpaceP1 Z = z;
 
-phi = phi - 0.5;
+  SpaceP1 elemSize = hTriangle;
+  real bound = elemSize[].max;
+  if (mpirank == 0)
+    print(bound);
+
+  if (mpirank == 0)
+  {
+    print("Processing nodes...");
+    for (int i = 0; i < SpaceP1.ndof; i++)
+    {
+      if (X[][i] > xMin-bound && X[][i] < xMax+bound &&
+          Y[][i] > yMin-bound && Y[][i] < yMax+bound &&
+          Z[][i] > zMin-bound && Z[][i] < zMax+bound)
+        if (chi(MeshScaffold)(X[][i], Y[][i], Z[][i]) == 1)
+          phi[][i] = 1;
+      cout << "\rProcessed: " << i << " / " << SpaceP1.ndof;
+    }
+    cout << endl;
+  }
+  broadcast(processor(0), phi[]);
+
+  phi = phi - 0.5;
+}
+else
+{
+  phi[] = readsol(solFileName);
+  solFileName = solFileName + ".sol";
+}
 
 if (refineMesh)
 {
   if (mpirank == 0)
-    cout << "Refining the mesh..." << endl;
+    print("Refining the mesh...");
 
   SpaceP1 phiTemp;
   distance(Mesh, phi, phiTemp[]);
@@ -93,6 +125,6 @@ if (mpirank == 0)
   savesol(solFileName, Mesh, phi);
   savemesh(Mesh, outputFileName);
 
-  cout << "Finite Element DOF: " + SpaceP1.ndof << endl;
-  cout << "Number of Elements: " + Mesh.nt << endl;;
+  print("Finite Element DOF: " + SpaceP1.ndof);
+  print("Number of Elements: " + Mesh.nt);
 }
