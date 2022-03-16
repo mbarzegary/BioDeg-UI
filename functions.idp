@@ -1,0 +1,27 @@
+IFMACRO(!idpFunctions)
+macro idpFunctions 1 // prevent multiple include statements
+
+// a set of different print helper macros
+macro print(text)
+{
+	cout << text << endl;
+	cout.flush;
+} //
+
+macro printDivider
+{
+	print("=============================================================");
+} //
+
+
+macro setCPUTime
+{
+	cpuTime = mpiWtime();
+} //
+
+macro printElapsedTime
+{
+	print("Solved in " + (mpiWtime() - cpuTime) + " s")
+} //
+
+ENDIFMACRO

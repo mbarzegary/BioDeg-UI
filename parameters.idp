@@ -25,5 +25,6 @@ int allowedMemory = 30000;
 
 bool doParallel = getARGV("-parallel", 1); // if false, the code should be run with 1 MPI process only
 
+bool importSolution = getARGV("-import_solution", 0); // can be set to import an already calculated solution for refinement only
 
 ENDIFMACRO
