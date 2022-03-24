@@ -597,7 +597,7 @@ void MainWindow::on_plotLossButton_clicked()
     chart->legend()->hide();
     chart->addSeries(series);
     chart->createDefaultAxes();
-    chart->setTitle("Mass loss vs. time");
+    chart->setTitle("Mass loss (%) over time");
 
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
