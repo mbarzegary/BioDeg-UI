@@ -141,6 +141,15 @@ The details of the postprocessing steps of \biodeg{} results are discussed in th
 \url{https://www.youtube.com/watch?v=Sz-eBML2pxs&ab_channel=TuxRiders}
 \end{itemize}
 
+Please note that there are 2 minor differences between the result files shown on the above videos and the current results that \biodeg{} generates:
+
+\begin{enumerate}
+\item
+The VTK files shown on the videos are actually replaced by VTU files. When you select the option to save the VTK output, \biodeg{} stores the results in a set of VTU files, written in requested time steps for each partition of the mesh separately. 
+\item
+Since \biodeg{} uses parallel computing to perform the simulation, a PVD file is written as a base container to organize all the generated output of different employed CPU cores (or computational nodes). So, instead of opening the grouped VTK files shown on the video, the user should open the PVD file in ParaView, which loads the VTU files automatically. 
+\end{enumerate}
+
 The following video gives you an idea of how to plot the values of different variables over a line and how to do some quantitative analysis on the results:
 
 \begin{itemize}
