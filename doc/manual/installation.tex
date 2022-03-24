@@ -19,6 +19,8 @@ Download FreeFEM installer for the platform you use and install it. You can find
 Download \biodeg{} tarballs for your preferred platform (Windows or Linux) from the \href{https://github.com/mbarzegary/BioDeg-UI/releases}{Release page of \biodeg{} repository}. This is indeed the \biodeg{} UI bundle that contains the \biodeg{} core, the user interface, the pre-processor, and the post-processor.
 \item
 Extract the downloaded tarball (zip) file and execute \verb|runBioDeg.cmd| in Windows or \verb|runBioDeg.sh| in Linux. By doing this, you see the \biodeg{} interface showing up on the screen.
+\item
+For visualizing the results, ParaView should be installed on your system, which can be downloaded and installed from \href{https://www.paraview.org/download/}{the official website} for different platforms. Moreover, Python is required for using the basic postprocessing templates provided by the \biodeg{}-UI, so it should be separately installed if one is interested to use that feature.
 \end{enumerate}
 
 
@@ -36,8 +38,8 @@ Building \biodeg{} and required libraries from source code will increase the per
 
 \begin{verbatim}
 --with-debugging=0 COPTFLAGS="-O3 -mtune=native" CXXOPTFLAGS="-O3 -mtune=native" 
-FOPTFLAGS="-O3 -mtune=native" --with-cxx-dialect=C++11 --with-ssl=0 --with-x=0 
---with-fortran-bindings=0 --with-cc=/usr/ --with-scalar-type=complex
+FOPTFLAGS="-O3 -mtune=native" --with-cxx-dialect=C++11 --with-ssl=0 
+--with-x=0 --with-fortran-bindings=0 --with-scalar-type=complex
 --with-blaslapack-include= --with-blaslapack-lib="-llapack -lblas"
 --with-scalapack --with-metis --with-ptscotch --with-suitesparse --with-suitesparse-lib=
 "-Wl, -lumfpack -lklu -lcholmod -lbtf -lccolamd -lcolamd -lcamd -lamd -lsuitesparseconfig"
