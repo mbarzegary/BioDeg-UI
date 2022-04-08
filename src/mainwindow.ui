@@ -855,7 +855,7 @@
               <item>
                <widget class="QLabel" name="label_9">
                 <property name="text">
-                 <string>Scaffold label</string>
+                 <string>Biodegradable part label</string>
                 </property>
                </widget>
               </item>
@@ -2551,7 +2551,7 @@
             <item>
              <widget class="QCheckBox" name="exportScaffoldCheck">
               <property name="text">
-               <string>Export scaffold geometry during degradation</string>
+               <string>Export biodegradable part geometry during degradation</string>
               </property>
              </widget>
             </item>
