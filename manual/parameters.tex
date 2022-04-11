@@ -12,7 +12,7 @@
 
 {\it Default:} true (1)
 
-{\it Description:} [Standard] Boolean parameter specifying whether an external mesh file is imported or a container box, as well as a cubic scaffold, would be created on the fly for simulation.
+{\it Description:} [Standard] Boolean parameter specifying whether an external mesh file is imported or a container box, as well as a cubic biodegradable part, would be created on the fly for simulation.
 
 {\it Possible values:} A boolean value (1 or 0)
 
@@ -27,7 +27,7 @@
 
 {\it Description:} [Standard] Path to the input mesh file (in MEDIT {\tt .mesh} format), which can be either absolute or relative. Is relevant only if parameter {\tt import\_mesh} is set to TRUE.
 
-{\it Possible values:} Any string value 
+{\it Possible values:} Any string value
 
 
 \item {\it Parameter name:} {\tt label\_scaffold}
@@ -39,9 +39,9 @@
 
 {\it Default:} 1
 
-{\it Description:} [Standard] The label of the (volume) region which is supposed to be scaffold in the input mesh (can be viewed in programs like GMSH before importing into \biodeg{}). 
+{\it Description:} [Standard] The label of the (volume) region which is supposed to be the biodegradable part in the input mesh (can be viewed in programs like GMSH before importing into \biodeg{}).
 
-{\it Possible values:} Any positive integer value 
+{\it Possible values:} Any positive integer value
 
 
 \item {\it Parameter name:} {\tt label\_medium}
@@ -51,11 +51,11 @@
 \index[prmindex]{label\_medium}
 \index[prmindexfull]{Geometry and mesh!label medium}
 
-{\it Default:} 2 
+{\it Default:} 2
 
 {\it Description:} [Standard] The label of the (volume) region which is supposed to be the medium (electrolyte) in the input mesh.
 
-{\it Possible values:} Any positive integer value 
+{\it Possible values:} Any positive integer value
 
 
 \item {\it Parameter name:} {\tt label\_wall}
@@ -69,7 +69,7 @@
 
 {\it Description:} [Advanced] The label of the surface in the input mesh to be assigned as wall (no-slip boundary condition) in the fluid flow simulations.
 
-{\it Possible values:} Any positive integer value 
+{\it Possible values:} Any positive integer value
 
 
 \item {\it Parameter name:} {\tt label\_inlet}
@@ -83,7 +83,7 @@
 
 {\it Description:} [Advanced] The label of the surface in the input mesh to be assigned as flow inlet (constant velocity boundary condition) in the fluid flow simulations.
 
-{\it Possible values:} Any positive integer value 
+{\it Possible values:} Any positive integer value
 
 
 \item {\it Parameter name:} {\tt label\_outlet}
@@ -97,7 +97,7 @@
 
 {\it Description:} [Advanced] The label of the surface in the input mesh to be assigned as flow outlet (zero pressure boundary condition) in the fluid flow simulations.
 
-{\it Possible values:} Any positive integer value 
+{\it Possible values:} Any positive integer value
 
 
 \item {\it Parameter name:} {\tt box\_length}
@@ -111,7 +111,7 @@
 
 {\it Description:} [Standard] In case of {\tt import\_mesh} being FALSE, specifies the length of the container box (for the electrolyte) in mm.
 
-{\it Possible values:} Any positive floating-point number 
+{\it Possible values:} Any positive floating-point number
 
 
 \item {\it Parameter name:} {\tt cube\_size\_x}
@@ -123,9 +123,9 @@
 
 {\it Default:} 13.0
 
-{\it Description:} [Standard] In case of {\tt import\_mesh} being FALSE, specifies the length of the scaffold cuboid along the x axis in mm.
+{\it Description:} [Standard] In case of {\tt import\_mesh} being FALSE, specifies the length of the biodegradable  cuboid along the x axis in mm.
 
-{\it Possible values:} Any positive floating-point number 
+{\it Possible values:} Any positive floating-point number
 
 
 \item {\it Parameter name:} {\tt cube\_size\_y}
@@ -137,9 +137,9 @@
 
 {\it Default:} 13.0
 
-{\it Description:} [Standard] In case of {\tt import\_mesh} being FALSE, specifies the length of the scaffold cuboid along the y axis in mm.
+{\it Description:} [Standard] In case of {\tt import\_mesh} being FALSE, specifies the length of the biodegradable  cuboid along the y axis in mm.
 
-{\it Possible values:} Any positive floating-point number 
+{\it Possible values:} Any positive floating-point number
 
 
 \item {\it Parameter name:} {\tt cube\_size\_z}
@@ -151,10 +151,10 @@
 
 {\it Default:} 4.0
 
-{\it Description:} [Standard] In case of {\tt import\_mesh} being FALSE, specifies the length of the scaffold cuboid along the z axis in mm.
+{\it Description:} [Standard] In case of {\tt import\_mesh} being FALSE, specifies the length of the biodegradable  cuboid along the z axis in mm.
 
 
-{\it Possible values:} Any positive floating-point number 
+{\it Possible values:} Any positive floating-point number
 
 
 \item {\it Parameter name:} {\tt mesh\_size}
@@ -168,7 +168,7 @@
 
 {\it Description:} [Standard] Number of elements on each edge of the container box, so a higher number means a finer mesh. The mesh size of the cuboid will be adjusted accordingly or can be adaptively refined by setting parameter {\tt refine\_initial\_mesh} to TRUE.
 
-{\it Possible values:} Any positive integer number 
+{\it Possible values:} Any positive integer number
 
 
 \item {\it Parameter name:} {\tt refine\_initial\_mesh}
@@ -313,7 +313,7 @@
 
 {\it Default:} 0.05
 
-{\it Description:} [Standard] 
+{\it Description:} [Standard]
 
 {\it Possible values:} The diffusion coefficient of the metallic ions transport. This parameter is one of the most effective ones on the rate of degradation.
 
@@ -705,7 +705,7 @@
 
 {\it Default:} 0.25
 
-{\it Description:} [Standard] The interval of saving results, text and VTK (if selected), to disk. 
+{\it Description:} [Standard] The interval of saving results, text and VTK (if selected), to disk.
 
 {\it Possible values:} Any floating-point number
 
