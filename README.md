@@ -8,7 +8,7 @@
 
 This repository contains the source code of BioDeg-UI, the user interface of BioDeg code for simulating the biodegradation and corrosion behavior of metallic materials. The BioDeg code (the computational core) is being maintained/developed in [this repository](https://github.com/mbarzegary/BioDeg).
 
-BioDeg is an open-source software written in FreeFEM (a domain-specific language for finite element programming), C++, and Python for modeling the degradation of metallic biomaterials and simulating the biodegradation behavior of medical devices, implants, and scaffolds in corrosion experiments. It can handle any geometry of desire and supports parallel computing to simulate large-scale models.
+BioDeg is an open-source software written in FreeFEM (a domain-specific language for finite element programming), C++, and Python for modeling the degradation of metallic biomaterials and simulating the biodegradation behavior of metallic medical devices and implants in corrosion experiments. It can handle any geometry of desire and supports parallel computing to simulate large-scale models.
 
 <img src="assets/screw_degradation.png" width="600" height="auto">
 <p>
