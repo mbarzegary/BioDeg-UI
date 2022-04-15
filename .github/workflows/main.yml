@@ -23,7 +23,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
       # Pulls a Docker image and builds the software inside it
       - name: Build and test BioDeg
@@ -31,5 +31,5 @@ jobs:
         with:
           registry: docker.io
           image: mbarzegary/qt-5.15.2-freefem-4.10:latest
-          options: -v "$GITHUB_WORKSPACE":/data 
+          options: -v ${{ github.workspace }}:/data 
           run: /data/buildWithDocker.sh
