@@ -695,7 +695,7 @@
      <x>0</x>
      <y>0</y>
      <width>1114</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -870,6 +870,9 @@
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::UpDownArrows</enum>
                 </property>
+                <property name="maximum">
+                 <number>9999</number>
+                </property>
                 <property name="value">
                  <number>1</number>
                 </property>
@@ -896,6 +899,9 @@
                 </property>
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::UpDownArrows</enum>
+                </property>
+                <property name="maximum">
+                 <number>9999</number>
                 </property>
                 <property name="value">
                  <number>2</number>
@@ -924,6 +930,9 @@
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::UpDownArrows</enum>
                 </property>
+                <property name="maximum">
+                 <number>9999</number>
+                </property>
                 <property name="value">
                  <number>3</number>
                 </property>
@@ -951,6 +960,9 @@
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::UpDownArrows</enum>
                 </property>
+                <property name="maximum">
+                 <number>9999</number>
+                </property>
                 <property name="value">
                  <number>4</number>
                 </property>
@@ -977,6 +989,9 @@
                 </property>
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::UpDownArrows</enum>
+                </property>
+                <property name="maximum">
+                 <number>9999</number>
                 </property>
                 <property name="value">
                  <number>5</number>
