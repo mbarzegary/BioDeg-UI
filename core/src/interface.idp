@@ -1,0 +1,50 @@
+// computing phi function gradient and interface shrinkage velocity
+
+IFMACRO(!idpInterface)
+macro idpInterface 1 // prevent multiple include statements
+
+if (mpirank==0) { print("Computing interface shrinkage velocity...") }
+
+// not compatible with new parallelization approach
+// // if mesh would be refined during simulation, the smallest element size should be
+// // calculated at each time step, otherwise it has been calculated before the time loop
+// if (refineMeshDuringSimulation)
+// {
+//   hhh = hTriangle;
+//   h = hhh[].min;
+// }
+
+// compute the normal value of the distance function and its gradient at each node
+normgradphi = sqrt(grad(phi)'*grad(phi)+1e-6);
+xphi = dx(phi);
+yphi = dy(phi);
+zphi = dz(phi);
+
+// we want to calculate the gradient of concentration at the distance h of the interface
+dirx = -h*xphi/normgradphi;
+diry = -h*yphi/normgradphi;
+dirz = -h*zphi/normgradphi;
+
+// compute effective diffusion coefficients
+DeMg = DMg * ((1 - F/Fmax) + (F/Fmax)*del*eps/tau);
+DeCl = DCl * ((1 - F/Fmax) + (F/Fmax)*del*eps/tau) * (phi <= 0);
+DeOH = DOH * ((1 - F/Fmax) + (F/Fmax)*del*eps/tau) * (phi <= 0);
+nue  = nu  * ((1 - F/Fmax) + (F/Fmax)*del*eps/tau) * (phi <= 0);
+
+// calculate velocity of the interface
+if (t == 0)
+{
+  v = 2*alphaCoeff*alpha/sqrt(dt);
+}
+else
+{
+  // the mesh is distributed, so the interpolation may be "ill-conditioned"
+  // as a result, we should change the interpolation method before doing that
+  searchMethod = 0;
+  v = - (Mg(x+dirx, y+diry, z+dirz) - Mg(x+2*dirx, y+2*diry, z+2*dirz)) * DeMg(x+dirx, y+diry, z+dirz) * vDenom / h;
+  searchMethod = 1;
+  v = min(v, 0);
+}
+mpiBarrier(mpiCommWorld);
+
+ENDIFMACRO

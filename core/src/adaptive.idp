@@ -1,0 +1,71 @@
+// adaptive mesh refinement during simulation
+
+IFMACRO(!idpAdaptive)
+macro idpAdaptive 1 // prevent multiple include statements
+
+if (refineMeshDuringSimulation) // if configured to refine mesh during simulation
+{
+  if (mpirank == 0)
+  {
+    scaffoldSize = int3d(Mesh)(scaffold); // current scaffold volume
+    scaffoldChange = abs(scaffoldSize - scaffoldSizeOld)/scaffoldSizeOld*100; // calcualte scaffold change percentage
+
+    if (scaffoldChange > scaffoldChangeThreshold) // scaffold changed more than a certain percentage
+    {
+      //  there are two different scenarios according to whether if we want to keep the previous refined mesh
+      // and just refine current boundary layer or not. if we want to keep refined mesh, the computational cost
+      // increases gradually. if not, in second scenario, we should revert back the mesh to its original status (because
+      // tetgen can only reconstruct mesh in a way that elements would be splitted), and then refine it again
+      // accoridng to our distance function. the drawback of this approach is loss of data as well as huge
+      // interpolation error in all dependent variables.
+      print("Refining mesh...")
+      if (keepPreviousRefinedMesh)
+      {
+        Mesh=change(Mesh, fregion= 0); // mesh is divided into different labels before, so we should reset the labels first
+      }
+      else
+      { // revert back mesh and interpolate phi because we need it for mesh adaptation criterion
+        Mesh = initialMesh;
+        phi = phi;
+      }
+      mm = 0.;
+      mm[]=mshmet(Mesh,(phi>0),normalization=1,aniso=0,nbregul=1,hmin=1e-2,hmax=0.2,err=mshmetError);
+      Mesh=tetgreconstruction(Mesh,switch="raAQ",sizeofvolume=mm*mm*mm/6.);
+      // decompose mesh labels again
+      real c = mpisize/real(Mesh.nt);
+      Mesh=change(Mesh,fregion= min(mpisize-1,int(nuTriangle*c)));
+      print("New DOF is: " + SpaceP1.ndof)
+      // mark the changed variable to indicate that every fespace variable should be interpolated
+      changed = 1; //true
+      phi = phi; // phi should be interpolated into the new mesh before being redistanced
+      distance(Mesh, phi, phiTemp[]); // redistancing phi
+      phi = phiTemp;
+    }
+  }
+  broadcast(processor(0), changed);
+  // instead of interpolating all fespace variables in process #0 and then broadcasting them, we perform
+  // the interpolation in all processes. although it is a similar and useless computation in all processes,
+  // it seems that doinh this saves time in comparison to broadcasting all the variables one by one.
+  if (changed)
+  {
+    broadcast(processor(0), Mesh); // first broadcast the new mesh to all processes
+    phi = phi;
+    // surprisingly, it has been observed that in some cases, for the phi variable, processes other than #0
+    // compute a different value (fespace field) than the process #0. because phi is very important, I prefer
+    // to broadcast it from process #0 to all others to keep it the same among processes.
+    broadcast(processor(0), phi[]);
+    // interpolate all other fespace variable in each process
+    F = F;
+    Mg = Mg;
+    Cl = Cl;
+    normgradphi = normgradphi;
+    DeMg = DeMg;
+    DeCl = DeCl;
+    v = v;
+    scaffold = (phi > 0);
+    scaffoldSizeOld = int3d(Mesh)(scaffold);
+    changed = 0; //false
+  }
+}
+
+ENDIFMACRO
