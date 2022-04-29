@@ -1,9 +1,9 @@
 # BioDeg, biodegradation and corrosion simulation code
 
 [![CI](https://github.com/mbarzegary/BioDeg-UI/workflows/CI/badge.svg)](https://github.com/mbarzegary/BioDeg-UI/actions/workflows/main.yml)
-[![Build Status](https://app.travis-ci.com/mbarzegary/BioDeg-UI.svg?branch=main)](https://app.travis-ci.com/mbarzegary/BioDeg-UI)
 [![license: GPL v3](https://img.shields.io/badge/license-GPLv3-blue.svg)](LICENSE)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
+<!--[![Build Status](https://app.travis-ci.com/mbarzegary/BioDeg-UI.svg?branch=main)](https://app.travis-ci.com/mbarzegary/BioDeg-UI)-->
 
 ## About
 
