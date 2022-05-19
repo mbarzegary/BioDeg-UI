@@ -72,9 +72,9 @@ For graphical output, the postprocessing of the simulation results is handled by
 
 ## Documentation
 
-A comprehensive user manual is provided for user-oriented documentation on installing the software, preparing the simulations, running the models, and postprocessing the results. As this is being developed in a separate repository (BioDeg-doc), additional documents and supporting materials will be added eventually.
+A comprehensive user manual is provided for user-oriented documentation on installing the software, preparing the simulations, running the models, and postprocessing the results. As this is being developed in a separate repository (BioDeg-doc [@BioDegDoc]), additional documents and supporting materials will be added eventually.
 
-Since FreeFEM does not support developer-focused technical documentation (like Doxygen), the core code is fully commented for easier contribution. Further technical details regarding the development, like the theoretical foundations of the computational models, has been added to the BioDeg-doc repository.
+Since FreeFEM does not support developer-focused technical documentation (like Doxygen), the core code is fully commented for easier contribution. Further technical details regarding the development, like the theoretical foundations of the computational models, has been added to the BioDeg-doc repository [@BioDegDoc]. Both the user manual and the theory guide are accessible from the Help menu on the BioDeg UI.
 
 ## Contribution
 
