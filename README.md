@@ -1,5 +1,6 @@
 # BioDeg, biodegradation and corrosion simulation code
 
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.04281/status.svg)](https://doi.org/10.21105/joss.04281)
 [![build](https://github.com/mbarzegary/BioDeg-UI/workflows/build/badge.svg)](https://github.com/mbarzegary/BioDeg-UI/actions/workflows/main.yml)
 [![license: GPL v3](https://img.shields.io/badge/license-GPLv3-blue.svg)](LICENSE)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
