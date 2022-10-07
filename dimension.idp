@@ -26,8 +26,8 @@ macro idpDimen 1 // prevent multiple include statements
     cout << sizeX << " " << sizeY << " " << sizeZ << endl;
 
   sizeX = sizeX + 2 * marginX;
-  sizeY = sizeY + 2 * marginX;
-  sizeZ = sizeZ + 2 * marginX;
+  sizeY = sizeY + 2 * marginY;
+  sizeZ = sizeZ + 2 * marginZ;
 
   real centerX = (xMax + xMin) / 2;
   real centerY = (yMax + yMin) / 2;
