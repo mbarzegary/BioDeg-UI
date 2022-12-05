@@ -106,8 +106,8 @@ if (mpirank == 0)
   print("Partitioning the mesh...")
 
 int[int] n2oOverlap;
-int[int] n2oGlobal;
-NewMacro MeshN2O() n2oGlobal EndMacro
+int[int] n2oGlob;
+NewMacro MeshN2O() n2oGlob EndMacro
 
 Mat NS, A;
 buildDmesh(Mesh);

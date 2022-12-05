@@ -1,8 +1,11 @@
 # BioDeg, a biodegradation and corrosion simulation code for metallic materials
 
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.04281/status.svg)](https://doi.org/10.21105/joss.04281)
+[![license: GPL v3](https://img.shields.io/badge/license-GPLv3-blue.svg)](LICENSE)
+
 ## About
 
-This repository contains the source code of BioDeg, a code for simulating the  biodegradation and corrosion behavior of metallic materials.
+This repository contains the source code of BioDeg, a code for simulating the  biodegradation and corrosion behavior of metallic materials. A full release of BioDeg, including a graphical user interface (GUI), the computational core (this repository), user manual, theory guide, and preprocessor can be found and downloaded from [this repository](https://github.com/mbarzegary/BioDeg-UI).
 
 <img src="doc/screw_degradation.jpg" width="600" height="auto">
 <p>
@@ -39,6 +42,19 @@ This code has been used in the following publications so far. In scientific work
           year = {2022},
           doi = {10.1177/10943420211045939},
     }
+
+    @article{Barzegari2022JOSS,
+          author = {Mojtaba Barzegari and Liesbet Geris},
+          title = {BioDeg: A finite element software for the simulation of the corrosion and biodegradation process in metallic biomaterials},
+          journal = {Journal of Open Source Software},
+          year = {2022},
+          publisher = {The Open Journal},
+          volume = {7},
+          number = {74},
+          pages = {4281},
+          doi = {10.21105/joss.04281},
+}
+
 
 ## Getting started
 

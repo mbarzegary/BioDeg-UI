@@ -29,7 +29,7 @@ if (doRedistance) // if it is configured to redistance distance function
     phiTemp = phi;
     phiTemp[] .*= A.D;
 
-    int[int] rst = restrict(SpaceP1, SpaceBackup, n2oGlobal);
+    int[int] rst = restrict(SpaceP1, SpaceBackup, n2oGlob);
 
     phiG = 0;
     for[i, v : rst] phiG[][v] = phiTemp[][i];
